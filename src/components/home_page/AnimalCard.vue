@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import maleIcon from "../../assets/home_page/male.svg"
+import femaleIcon from "../../assets/home_page/female.svg"
 import { defineProps } from "vue";
 
 
@@ -7,9 +9,9 @@ import { defineProps } from "vue";
 const { animal } = defineProps<{
   animal: Animal,
 }>();
-const genero = animal.genero === "Macho" ? "/male.svg" : "/female.svg"
-const adoptado = animal.estado === true ? "ADOPTADO" : "NO ADOPTADO"
-
+const genero = animal.genero === "Macho" ? maleIcon : femaleIcon
+const adoptado = animal.estado ? "ADOPTADO" : "NO ADOPTADO"
+console.log(animal)
 </script>
 
 
