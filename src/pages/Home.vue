@@ -2,7 +2,4 @@
 </script>
 
 <template>
-  <div>
-    <h1>Hola home</h1>
-  </div>
 </template>
