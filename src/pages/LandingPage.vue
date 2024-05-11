@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
   import logoUrl from '../assets/logo.png'
 </script>
@@ -38,3 +37,4 @@
   background-size: 100% 100%;
 }
 </style>
+
