@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import AddButton from "../components/home_page/AddButton.vue"
-import SearchInput from "../components/home_page/SearchInput.vue"
-import FilterButton from "../components/home_page/FilterButton.vue"
-import AnimalCard from "../components/home_page/AnimalCard.vue"
-import catIcon from "../assets/home_page/cat.svg"
-import bellIcon from "../assets/home_page/bell.svg"
-import dogIcon from "../assets/home_page/dog.svg"
-import filterIcon from "../assets/home_page/filter.svg"
-import animalsJSON from "../fakedata.json"
+import AddButton from "@/components/home_page/AddButton.vue"
+import SearchInput from "@/components/home_page/SearchInput.vue"
+import FilterButton from "@/components/home_page/FilterButton.vue"
+import AnimalCard from "@/components/home_page/AnimalCard.vue"
+import catIcon from "@/assets/home_page/cat.svg"
+import bellIcon from "@/assets/home_page/bell.svg"
+import dogIcon from "@/assets/home_page/dog.svg"
+import filterIcon from "@/assets/home_page/filter.svg"
+import animalsJSON from "@/fakedata.json"
 import { ref, watch } from "vue"
 
 
@@ -63,7 +63,7 @@ const selectCats = () => {
     <FilterButton @click="selectDogs" :isSelect="isDogSelect" :icon="dogIcon" text="Perros" />
     <FilterButton @click="selectCats" :isSelect="isCatSelect" :icon="catIcon" text="Gatos" />
   </div>
-  <section class="grid gap-3 md:grid-cols-4 mx-5 mt-2">
+  <section class="grid gap-3 md:grid-cols-3 mx-5 mt-2">
 
     <AnimalCard v-for="(animal) in animales" :key="animal.id" :animal="animal" />
   </section>
