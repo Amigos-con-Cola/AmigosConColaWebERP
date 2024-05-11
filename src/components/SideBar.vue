@@ -52,7 +52,7 @@ onMounted(() => {
               class="flex items-center p-2 rounded-lg dark:text-white hover:text-black text-white hover:font-semibold hover:bg-sky-300/50 dark:hover:bg-gray-700 group"
               to="/"
           >
-            <span
+            <i
                 aria-hidden="true"
                 class="icon-[typcn--home-outline] w-8 h-8 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
@@ -66,7 +66,7 @@ onMounted(() => {
           <RouterLink
               class="flex items-center p-2 rounded-lg dark:text-white hover:text-black hover:font-semibold hover:bg-sky-300/50 text-white dark:hover:bg-gray-700 group"
               to="/adopciones">
-            <span
+            <i
                 aria-hidden="true"
                 class="icon-[ion--paw-outline] flex-shrink-0 w-8 h-8 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
@@ -81,13 +81,13 @@ onMounted(() => {
           <RouterLink
               class="flex items-center p-2 rounded-lg dark:text-white hover:text-black text-white hover:font-semibold hover:bg-sky-300/50 dark:hover:bg-gray-700 group"
               to="/inventario">
-            <span
+            <i
                 aria-hidden="true"
                 class="icon-[material-symbols--inventory-2-outline] flex-shrink-0 w-8 h-8 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-            </span>
+                xmlns="http://www.w3.org/2000/svg"
+            />
             <span class=" flex-1 ms-3 whitespace-nowrap text-base">Inventario</span>
             <!--            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>-->
           </RouterLink>
@@ -96,13 +96,13 @@ onMounted(() => {
           <RouterLink
               class="flex items-center p-2 hover:text-black rounded-lg dark:text-white text-white hover:font-semibold hover:bg-sky-300/50 group"
               to="/donaciones">
-            <span
+            <i
                 aria-hidden="true"
                 class="icon-[heroicons-outline--currency-dollar] flex-shrink-0 w-8 h-8 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 20 18"
-                xmlns="http://www.w3.org/2000/svg">
-            </span>
+                xmlns="http://www.w3.org/2000/svg"
+            />
             <span class="flex-1 ms-3 whitespace-nowrap text-base">Donaciones</span>
           </RouterLink>
         </li>
@@ -110,13 +110,13 @@ onMounted(() => {
           <RouterLink
               class="flex  justify-center pr-2 pl-2 py-[0.7rem] text-gray-900 rounded-lg dark:text-white hover:font-semibold hover:bg-primary hover:bg-sky-300/50 dark:hover:bg-gray-700 group"
               to="/solicitudes-adopciones">
-            <span
+            <i
                 aria-hidden="true"
                 class="icon-[ic--round-inventory] flex-shrink-0 w-8 h-8 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 18 20"
-                xmlns="http://www.w3.org/2000/svg">
-            </span>
+                xmlns="http://www.w3.org/2000/svg"
+            />
             <div class="flex flex-col flex-1 hover:text-black text-white justify-center h-10">
               <span class="ms-3 whitespace-nowrap text-base">Solicitudes de </span>
               <span class="ms-3 whitespace-nowrap text-base">adopciones</span>
