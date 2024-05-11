@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import {onMounted} from 'vue'
 import {initFlowbite} from 'flowbite'
+import AmigosConColaLogo from '@assets/images/amigos-con-cola-logo.png'
 
 onMounted(() => {
   initFlowbite();
-
-
 })
 </script>
 
@@ -14,14 +13,16 @@ onMounted(() => {
       aria-controls="logo-sidebar"
       class="inline-flex w-10 items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
-      type="button">
+      type="button"
+  >
     <span class="sr-only">Open sidebar</span>
     <svg
         aria-hidden="true"
         class="w-6 h-6"
         fill="currentColor"
         viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+    >
       <path
           clip-rule="evenodd"
           d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
@@ -32,7 +33,8 @@ onMounted(() => {
   <aside
       id="logo-sidebar"
       aria-label="Sidebar"
-      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+  >
     <div class="h-full px-3 py-4 overflow-y-auto bg-primary dark:bg-gray-800">
       <RouterLink
           class="flex items-center justify-center h-16 ps-2.5 mb-8 mt-5"
@@ -41,7 +43,7 @@ onMounted(() => {
         <img
             alt="Amigos con cola Logo"
             class="h-28 w-28 "
-            src="../assets/images/amigos-con-cola-logo.png"
+            :src="AmigosConColaLogo"
         />
       </RouterLink>
       <ul class="space-y-2 font-medium">
@@ -55,8 +57,8 @@ onMounted(() => {
                 class="icon-[typcn--home-outline] w-8 h-8 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 22 21"
-                xmlns="http://www.w3.org/2000/svg">
-            </span>
+                xmlns="http://www.w3.org/2000/svg"
+            />
             <span class="ms-3 text-base">Inicio</span>
           </RouterLink>
         </li>
@@ -69,8 +71,8 @@ onMounted(() => {
                 class="icon-[ion--paw-outline] flex-shrink-0 w-8 h-8 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
                 viewBox="0 0 18 18"
-                xmlns="http://www.w3.org/2000/svg">
-            </span>
+                xmlns="http://www.w3.org/2000/svg"
+            />
             <span class="flex-1 ms-3 whitespace-nowrap text-base">Adopciones</span>
             <!--            <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>-->
           </RouterLink>

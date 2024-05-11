@@ -5,7 +5,7 @@ import SideBar from "@/components/SideBar.vue";
 <template>
   <div class="flex flex-col sm:flex-row sm:pl-72 sm:pt-8">
     <SideBar/>
-    <Router-View class="pl-5 pt-5"/>
+    <RouterView class="pl-5 pt-5"/>
   </div>
 </template>
 
@@ -15,8 +15,4 @@ import SideBar from "@/components/SideBar.vue";
   padding: 0;
   box-sizing: border-box;
 }
-
-.app {
-}
-
 </style>
