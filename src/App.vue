@@ -3,9 +3,11 @@ import SideBar from "@/components/SideBar.vue";
 </script>
 
 <template>
-  <div class="flex flex-col sm:flex-row sm:pl-72 sm:pt-8">
+  <div>
     <SideBar/>
-    <RouterView class="pl-5 pt-5"/>
+    <div class="sm:ml-72">
+      <RouterView class="pl-5 pt-5"/>
+    </div>
   </div>
 </template>
 
@@ -14,5 +16,9 @@ import SideBar from "@/components/SideBar.vue";
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
 }
 </style>
