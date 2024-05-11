@@ -1,3 +1,8 @@
+
+<script lang="ts" setup>
+  import logoUrl from '../assets/logo.png'
+</script>
+
 <template>
   <div class="background flex items-center justify-end pr-20 h-screen">
     <div class="flex flex-col items-center">
@@ -7,7 +12,7 @@
         Amigos Con Cola
       </h1>
       <div class="img-logo">
-        <img class="w-80" src="./assets/logo.png" alt="Amigos con cola" />
+        <img class="w-80" :src="logoUrl" alt="Amigos con cola" />
       </div>
       <div class="text-right">
         <h2 class="text-surface text-7xl font-extrabold dark:text-white">
@@ -26,11 +31,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
 
 <style scoped>
 .background {
-  background-image: url(../assets/dog.jpg);
+  background-image:url(../assets/dog.jpg);
   background-size: 100% 100%;
 }
 </style>
