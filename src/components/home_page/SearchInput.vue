@@ -17,7 +17,7 @@ const model = defineModel()
       </svg>
     </div>
     <input v-model="model"
-      class="w-36 h-8  block   text-sm border-primary  text-gray-900 border  ps-10 rounded-full bg-gray-50   md:w-64 "
+      class="w-56 h-8  block   text-sm border-primary  text-gray-900 border  ps-10 rounded-full bg-gray-50   md:w-64 "
       type="search" placeholder="Buscar">
   </div>
 </template>

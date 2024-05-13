@@ -7,9 +7,9 @@ const { icon, text, isSelect } = defineProps<{
 </script>
 
 <template>
-  <button
-    :class="{ 'bg-primary flex justify-evenly items-center rounded-full w-28 h-9': isSelect, 'flex justify-evenly items-center bg-[#DCF1F9] rounded-full w-28 h-9': !isSelect }">
-    <img class="size-6" :src="icon" alt="">
-    <p class="font-semibold">{{ text }}</p>
+  <button type="button"
+    :class="{ 'bg-primary  w-max px-8 flex   gap-5 justify-evenly items-center rounded-full  h-9': isSelect, 'flex justify-evenly   items-center px-8 bg-[#DCF1F9] gap-5 rounded-full  h-9': !isSelect }">
+    <img class=" size-5 md:size-6" :src="icon" alt="">
+    <span class="hidden md:flex text-sm  md:font-semibold">{{ text }}</span>
   </button>
 </template>

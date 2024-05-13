@@ -50,7 +50,7 @@ const selectCats = () => {
 <template>
   <div class="flex justify-end items-center gap-3 mx-4 mt-5">
     <SearchInput v-model="search" />
-    <AddButton>Registrar animal</AddButton>
+    <AddButton><span class="hidden md:flex">Registrar Animal</span></AddButton>
   </div>
   <div class="mt-5 ml-5 flex  items-center gap-3 ">
 
@@ -58,12 +58,12 @@ const selectCats = () => {
     <img class="mt-1 md:mt-2 size-4 md:size-6" :src="bellIcon" alt="notification bell">
 
   </div>
-  <div class="flex gap-3 mx-5 mt-2">
+  <div class="flex flex-wrap gap-3 ml-5  mt-4 mb-5">
     <FilterButton :icon="filterIcon" text="Filtrar" />
     <FilterButton @click="selectDogs" :isSelect="isDogSelect" :icon="dogIcon" text="Perros" />
     <FilterButton @click="selectCats" :isSelect="isCatSelect" :icon="catIcon" text="Gatos" />
   </div>
-  <section class="grid gap-3 md:grid-cols-3 mx-5 mt-2">
+  <section class="mx-2 gap-x-5  flex md:gap-x-5  lg:gap-x-7 gap-y-9  flex-wrap  md:mx-5 mt-2">
 
     <AnimalCard v-for="(animal) in animales" :key="animal.id" :animal="animal" />
   </section>
