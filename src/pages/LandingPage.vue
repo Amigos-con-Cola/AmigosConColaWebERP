@@ -8,28 +8,28 @@ import logoUrl from "../assets/images/amigos-con-cola-logo.png";
   >
     <div class="flex flex-col items-center">
       <h1
-        class="text-surface text-2xl sm:text-2xl md:text-3xl lg:text-[5rem] font-extrabold sm:mb-px lg:mb-12"
+        class="text-surface text-xl sm:text-4xl md:text-[2.5rem] lg:text-[3.5rem] font-extrabold sm:mb-px lg:mb-12"
       >
-        Amigos Con Cola
+        Amigos con cola
       </h1>
       <div class="img-logo">
         <img
-          class="w-32 sm:w-32 md:w-40 lg:w-60 lg:mb-5 sm:mb-px"
+          class="w-24 sm:w-32 md:w-36 lg:w-[11rem] lg:h-[11rem] lg:mb-5 sm:mb-px"
           :src="logoUrl"
           alt="Amigos con cola"
         />
       </div>
       <div>
         <h2
-          class="text-surface text-2xl sm:text-2xl md:text-3xl lg:text-[5rem] font-extrabold sm:mb-0 lg:mb-5"
+          class="text-surface text-xl sm:text-4xl md:text-[2.5rem] lg:text-[3.5rem] font-extrabold sm:mb-0"
         >
           Bienvenido
         </h2>
       </div>
-      <div class="btn-container mt-6">
+      <div class="btn-container mt-20">
         <button
           type="button"
-          class="text-surface bg-blue-500 hover:bg-blue-400 rounded-full text-xs sm:text-xs lg:text-xl px-5 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5"
+          class="text-surface px-7 shadow-3xl bg-blue-500 hover:bg-blue-400 rounded-full text-xs md:text-base sm:text-base sm:px-8 lg:text-xl py-3 md:px-10 md:py-4 lg:px-12 lg:py-5 font-semibold"
         >
           INICIAR
         </button>
