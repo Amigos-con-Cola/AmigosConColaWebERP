@@ -48,23 +48,25 @@ const selectCats = () => {
 
 
 <template>
-  <div class="flex justify-end items-center gap-3 mx-4 mt-5">
-    <SearchInput v-model="search" />
-    <AddButton><span class="hidden md:flex">Registrar Animal</span></AddButton>
-  </div>
-  <div class="mt-5 ml-5 flex  items-center gap-3 ">
+  <div class="flex flex-col justify-center">
+    <div class="flex justify-start lg:justify-end items-center gap-3 mx-4 mt-5">
+      <SearchInput v-model="search" />
+      <AddButton><span class="hidden md:flex">Registrar Animal</span></AddButton>
+    </div>
+    <div class="mt-5 mb-5  flex  items-center gap-3 ">
 
-    <h2 class="text-2xl md:text-4xl font-bold m-0">Categorías</h2>
-    <img class="mt-1 md:mt-2 size-4 md:size-6" :src="bellIcon" alt="notification bell">
+      <h2 class="text-2xl md:text-4xl font-bold m-0">Categorías</h2>
+      <img class="mt-1 md:mt-2 size-4 md:size-6" :src="bellIcon" alt="notification bell">
 
-  </div>
-  <div class="flex flex-wrap gap-3 ml-5  mt-4 mb-5">
-    <FilterButton :icon="filterIcon" text="Filtrar" />
-    <FilterButton @click="selectDogs" :isSelect="isDogSelect" :icon="dogIcon" text="Perros" />
-    <FilterButton @click="selectCats" :isSelect="isCatSelect" :icon="catIcon" text="Gatos" />
-  </div>
-  <section class="mx-2 gap-x-5  flex md:gap-x-5  lg:gap-x-7 gap-y-9  flex-wrap  md:mx-5 mt-2">
+    </div>
+    <div class="flex flex-wrap gap-3   mt-4 mb-7">
+      <FilterButton :icon="filterIcon" text="Filtrar" />
+      <FilterButton @click="selectDogs" :isSelect="isDogSelect" :icon="dogIcon" text="Perros" />
+      <FilterButton @click="selectCats" :isSelect="isCatSelect" :icon="catIcon" text="Gatos" />
+    </div>
+    <section class=" gap-x-5 flex  md:gap-x-5 lg:gap-x-11 gap-y-9  flex-wrap   mt-2">
 
-    <AnimalCard v-for="(animal) in animales" :key="animal.id" :animal="animal" />
-  </section>
+      <AnimalCard v-for="(animal) in animales" :key="animal.id" :animal="animal" />
+    </section>
+  </div>
 </template>
