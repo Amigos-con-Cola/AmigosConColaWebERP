@@ -11,7 +11,7 @@ type Story = StoryObj<typeof SearchInput>;
 export const Primary: Story = {
   render: () => ({
     components: { SearchInput },
-    template: "<SearchInput />",
+    template: "<SearchInput/>",
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
