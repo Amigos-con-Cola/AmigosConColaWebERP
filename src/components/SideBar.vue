@@ -35,7 +35,7 @@ onMounted(() => {
   <aside
     id="logo-sidebar"
     aria-label="Sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0"
   >
     <div class="h-full px-3 py-4 overflow-y-auto bg-primary dark:bg-gray-800">
       <RouterLink
@@ -43,9 +43,9 @@ onMounted(() => {
         to="/home"
       >
         <img
+          :src="AmigosConColaLogo"
           alt="Amigos con cola Logo"
           class="h-28 w-28"
-          :src="AmigosConColaLogo"
         />
       </RouterLink>
       <ul class="space-y-2 font-medium">

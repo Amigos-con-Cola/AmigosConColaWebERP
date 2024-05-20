@@ -56,32 +56,35 @@ const selectCats = () => {
     <div class="mt-5 mb-5 flex items-center gap-3">
       <h2 class="text-2xl md:text-4xl font-bold m-0">Categorías</h2>
       <img
-        class="mt-1 md:mt-2 size-4 md:size-6"
         :src="bellIcon"
         alt="notification bell"
+        class="mt-1 md:mt-2 size-4 md:size-6"
       />
     </div>
     <div class="flex flex-wrap gap-3 mt-4 mb-7">
       <FilterButton :icon="filterIcon" text="Filtrar" />
       <FilterButton
-        @click="selectDogs"
-        :isSelect="isDogSelect"
         :icon="dogIcon"
+        :isSelect="isDogSelect"
         text="Perros"
+        @click="selectDogs"
       />
       <FilterButton
-        @click="selectCats"
-        :isSelect="isCatSelect"
         :icon="catIcon"
+        :isSelect="isCatSelect"
         text="Gatos"
+        @click="selectCats"
       />
     </div>
     <section class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap mt-2">
-      <AnimalCard
+      <RouterLink
         v-for="animal in animales"
         :key="animal.id"
-        :animal="animal"
-      />
+        :to="`/pet-info/${animal.id}`"
+        class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap mt-2"
+      >
+        <AnimalCard :animal="animal" />
+      </RouterLink>
     </section>
   </div>
 </template>

@@ -10,6 +10,10 @@ const routes = [
     path: "/solicitudes-adopciones",
     component: () => import("@pages/AdoptionRequests.vue"),
   },
+  {
+    path: "/pet-info/:id",
+    component: () => import("@pages/PetInfo.vue"),
+  },
 ];
 
 const router = createRouter({
