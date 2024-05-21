@@ -1,15 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from "vue";
+
 const props = defineProps(["formValues"]);
 
 const perroIsSelect = ref<boolean>(false);
 const gatoIsSelect = ref<boolean>(false);
 const machoIsSelect = ref<boolean>(false);
 const hembraIsSelect = ref<boolean>(false);
-const primeraIsSelect = ref<boolean>(false);
-const segundaIsSelect = ref<boolean>(false);
-const terceraIsSelect = ref<boolean>(false);
-const cuartaIsSelect = ref<boolean>(false);
 
 const handlePerroClick = () => {
   perroIsSelect.value = true;
@@ -33,148 +30,89 @@ const handleHembraClick = () => {
   hembraIsSelect.value = true;
   props.formValues.genero = "Hembra";
 };
-
-const handlePesoClick = (event: Event) => {
-  if (event.target === null) return;
-  const value = event.target.value;
-  props.formValues.peso = value;
-  switch (value) {
-    case "0-25 lbs":
-      primeraIsSelect.value = true;
-      segundaIsSelect.value = false;
-      terceraIsSelect.value = false;
-      cuartaIsSelect.value = false;
-      break;
-    case "25-50 lbs":
-      primeraIsSelect.value = false;
-      segundaIsSelect.value = true;
-      terceraIsSelect.value = false;
-      cuartaIsSelect.value = false;
-      break;
-    case "50-100 lbs":
-      primeraIsSelect.value = false;
-      segundaIsSelect.value = false;
-      terceraIsSelect.value = true;
-      cuartaIsSelect.value = false;
-      break;
-    case "100+ lbs":
-      primeraIsSelect.value = false;
-      segundaIsSelect.value = false;
-      terceraIsSelect.value = false;
-      cuartaIsSelect.value = true;
-      break;
-  }
-};
-
-const validateStep = () => {
-  let isValid = true;
-  const requiredFields = [
-    "nombre",
-    "especie",
-    "edad",
-    "genero",
-    "ubicacion",
-    "codigo",
-    "peso",
-    "historiaOrigen",
-  ];
-  requiredFields.forEach((field) => {
-    if (!props.formValues[field]) {
-      isValid = false;
-      document.getElementById(field)?.classList.add("border-red-500"); // Añadir clase para marcar campo
-    } else {
-      document.getElementById(field)?.classList.remove("border-red-500"); // Remover clase si el campo está lleno
-    }
-  });
-  return isValid;
-};
-
-const handleNextClick = (e) => {
-  e.preventDefault();
-  if (validateStep()) {
-    // Emitir evento para avanzar al siguiente paso solo si la validación pasa
-    emits("next");
-  }
-};
 </script>
 
 <template>
   <form class="">
-    <div class="grid gap-6 md:gap-x-24 mb-6 md:grid-cols-2">
-      <div>
+    <div class="grid gap-6 md:gap-x-24 md:gap-y-5 mb-6 md:grid-cols-2">
+      <div class="md:flex md:items-center md:space-x-4">
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="nombre"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Nombre</label
         >
         <input
-          v-model="props.formValues.nombre"
-          type="text"
           id="nombre"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          v-model="props.formValues.nombre"
+          class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5"
           placeholder="Bruno"
           required
+          type="text"
         />
       </div>
-      <div class="md:col-start-1 md:row-start-2">
+
+      <div
+        class="md:col-start-1 md:row-start-2 md:flex md:items-center md:space-x-4"
+      >
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="edad"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Edad</label
         >
         <input
-          v-model="props.formValues.edad"
-          type="text"
           id="edad"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          v-model="props.formValues.edad"
+          class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Entre 5 - 7 meses"
           required
+          type="text"
         />
       </div>
-      <div class="md:col-start-2">
+
+      <div class="md:col-start-2 md:flex md:items-center md:space-x-4">
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 md:mb-0 md:w-24"
           for="especie"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Especie</label
         >
         <div
           id="especie"
-          class="text-sm font-semibold flex justify-around gap-2 items-center w-full border border-primary h-[3rem]"
+          class="text-sm font-semibold flex justify-around gap-2 items-center w-full border border-primary h-10"
         >
           <input
-            @click="handlePerroClick"
             :class="{
-              ' bg-primary w-full h-2/3 ml-3':
+              'bg-primary w-full h-2/3 ml-3':
                 perroIsSelect || props.formValues.especie === 'Perro',
               'hover:bg-sky-300 w-full h-2/3 ml-3': !perroIsSelect,
             }"
             type="button"
             value="Perro"
+            @click="handlePerroClick"
           />
           <input
-            @click="handleGatoClick"
             :class="{
-              'bg-primary w-full  h-2/3 mr-3':
+              'bg-primary w-full h-2/3 mr-3':
                 gatoIsSelect || props.formValues.especie === 'Gato',
-              'hover:bg-sky-300 w-full  h-2/3 mr-3': !gatoIsSelect,
+              'hover:bg-sky-300 w-full h-2/3 mr-3': !gatoIsSelect,
             }"
             type="button"
             value="Gato"
+            @click="handleGatoClick"
           />
         </div>
       </div>
-      <div class="md:col-start-2">
+
+      <div class="md:col-start-2 md:flex md:items-center md:space-x-4">
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="genero"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Género</label
         >
         <div
           id="genero"
-          class="text-sm font-semibold flex justify-around gap-2 items-center w-full border border-primary h-[3rem]"
+          class="text-sm font-semibold flex justify-around gap-2 items-center w-full border border-primary h-10"
         >
           <input
-            @click="handleMachoClick"
             id="macho"
             :class="{
               'bg-primary w-full h-2/3 ml-3':
@@ -183,113 +121,81 @@ const handleNextClick = (e) => {
             }"
             type="button"
             value="Macho"
+            @click="handleMachoClick"
           />
           <input
-            @click="handleHembraClick"
             id="hembra"
             :class="{
-              'bg-primary w-full  h-2/3 mr-3':
+              'bg-primary w-full h-2/3 mr-3':
                 hembraIsSelect || props.formValues.genero === 'Hembra',
-              'hover:bg-sky-300 w-full  h-2/3 mr-3': !hembraIsSelect,
+              'hover:bg-sky-300 w-full h-2/3 mr-3': !hembraIsSelect,
             }"
             type="button"
             value="Hembra"
+            @click="handleHembraClick"
           />
         </div>
       </div>
-      <div>
+
+      <div class="md:flex md:items-center md:space-x-4">
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="ubicacion"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Ubicación</label
         >
         <input
-          v-model="props.formValues.ubicacion"
-          type="text"
           id="ubicacion"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          v-model="props.formValues.ubicacion"
+          class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Casa"
           required
+          type="text"
         />
       </div>
-      <div>
+
+      <div class="md:flex md:items-center md:space-x-4">
         <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="codigo"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >Código</label
         >
         <input
-          v-model="props.formValues.codigo"
-          type="text"
           id="codigo"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          v-model="props.formValues.codigo"
+          class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="F-23"
           required
+          type="text"
+        />
+      </div>
+
+      <div class="md:flex md:items-center md:space-x-4">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
+          for="peso"
+          >Peso</label
+        >
+        <input
+          id="peso"
+          v-model="props.formValues.peso"
+          class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          min="1"
+          placeholder="50"
+          required
+          type="number"
         />
       </div>
     </div>
-    <div>
-      <label
-        for="peso"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Peso</label
-      >
-      <div
-        id="peso"
-        class="text-sm font-semibold flex flex-col gap-5 justify-center w-full border border-primary h-max md:flex-row"
-      >
-        <input
-          @click="handlePesoClick"
-          :class="{
-            'mx-2 bg-primary h-8  mt-5 md:mb-5 md:w-full':
-              primeraIsSelect || props.formValues.peso === '0-25 lbs',
-            'hover:bg-sky-300 mx-2  h-8  mt-5 md:mb-5 md:w-full':
-              !primeraIsSelect,
-          }"
-          type="button"
-          value="0-25 lbs"
-        />
-        <input
-          @click="handlePesoClick"
-          :class="{
-            'mx-2 bg-primary  h-8 md:mt-5 md:w-full':
-              segundaIsSelect || props.formValues.peso === '25-50 lbs',
-            'hover:bg-sky-300 mx-2  h-8 md:mt-5 md:w-full': !segundaIsSelect,
-          }"
-          type="button"
-          value="25-50 lbs"
-        />
-        <input
-          @click="handlePesoClick"
-          :class="{
-            'mx-2 bg-primary  h-8 md:mt-5 md:w-full':
-              terceraIsSelect || props.formValues.peso === '50-100 lbs',
-            'hover:bg-sky-300 mx-2  h-8 md:mt-5 md:w-full': !terceraIsSelect,
-          }"
-          type="button"
-          value="50-100 lbs"
-        />
-        <input
-          @click="handlePesoClick"
-          :class="{
-            'mx-2 bg-primary h-8 mb-5 md:mt-5 md:w-full':
-              cuartaIsSelect || props.formValues.peso === '100+ lbs',
-            'hover:bg-sky-300 mx-2 h-8 mb-5 md:mt-5 md:w-full': !cuartaIsSelect,
-          }"
-          type="button"
-          value="100+ lbs"
-        />
-      </div>
-    </div>
+
     <div class="mt-5">
       <label
-        for="origen"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        for="origen"
         >Historia de origen</label
       >
       <textarea
-        v-model="props.formValues.historiaOrigen"
         id="origen"
+        v-model="props.formValues.historiaOrigen"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Fue encontrado en ..."
         required

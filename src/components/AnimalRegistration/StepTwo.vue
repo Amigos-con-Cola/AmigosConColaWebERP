@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from "vue";
 import upload from "@/assets/AnimalRegistration/upload.svg";
 import cancel from "@/assets/AnimalRegistration/cancel.svg";
@@ -38,6 +38,8 @@ const startUploadSimulation = () => {
 const cancelHandler = () => {
   imageName.value = "";
   imageUrl.value = "";
+  props.formValues.imageName = "";
+  props.formValues.imageUrl = "";
 };
 </script>
 
@@ -45,8 +47,8 @@ const cancelHandler = () => {
   <form class="flex flex-col items-center justify-center">
     <div class="flex items-center justify-center md:w-2/3">
       <label
-        for="dropzone-file"
         class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        for="dropzone-file"
       >
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
           <img :src="upload" alt="upload svg" />
@@ -61,11 +63,11 @@ const cancelHandler = () => {
           </p>
         </div>
         <input
-          required
           id="dropzone-file"
-          type="file"
           accept="image/*"
           class="hidden"
+          required
+          type="file"
           @input="inputHandler"
         />
       </label>
@@ -91,8 +93,8 @@ const cancelHandler = () => {
         </button>
       </div>
       <div
-        class="bg-green-500 h-1 rounded-full"
         :style="{ width: `${progress}%` }"
+        class="bg-green-500 h-1 rounded-full"
       ></div>
     </div>
   </form>
