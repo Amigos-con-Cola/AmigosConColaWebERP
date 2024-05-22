@@ -44,7 +44,7 @@ const cancelHandler = () => {
 </script>
 
 <template>
-  <form class="flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center justify-center">
     <div class="flex items-center justify-center md:w-2/3">
       <label
         class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -66,7 +66,6 @@ const cancelHandler = () => {
           id="dropzone-file"
           accept="image/*"
           class="hidden"
-          required
           type="file"
           @input="inputHandler"
         />
@@ -97,7 +96,7 @@ const cancelHandler = () => {
         class="bg-green-500 h-1 rounded-full"
       ></div>
     </div>
-  </form>
+  </div>
 </template>
 
 <style scoped></style>

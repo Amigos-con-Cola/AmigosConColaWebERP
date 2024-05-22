@@ -4,10 +4,10 @@ const step = defineModel();
 
 <template>
   <ol class="flex items-center mt-5">
-    <li class="relative w-full mb-6">
+    <li class="relative w-full mb-10 lg:mb-5">
       <div class="flex items-center lg:w-96">
         <div
-          class="z-10 flex items-center justify-center w-6 h-6 bg-primary rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0"
+          class="z-10 flex items-center justify-center w-6 h-6 bg-primary rounded-full ring-0 ring-white sm:ring-8 shrink-0"
         >
           <svg
             aria-hidden="true"
@@ -28,9 +28,7 @@ const step = defineModel();
         <div class="flex-grow bg-gray-200 h-0.5 dark:bg-gray-700"></div>
       </div>
       <div class="mt-3">
-        <h3 class="text-sm text-gray-900 dark:text-white">
-          Información básica
-        </h3>
+        <h3 class="text-sm text-gray-900 dark:text-white">Información</h3>
       </div>
     </li>
     <li class="relative w-full mb-10 lg:mb-5">

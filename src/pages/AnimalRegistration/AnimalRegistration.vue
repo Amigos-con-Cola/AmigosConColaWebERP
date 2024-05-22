@@ -4,6 +4,7 @@ import StepOne from "@/components/AnimalRegistration/StepOne.vue";
 import StepTwo from "@/components/AnimalRegistration/StepTwo.vue";
 import StepThree from "@/components/AnimalRegistration/StepThree.vue";
 import { reactive, ref, watch } from "vue";
+import { Form } from "vee-validate";
 
 const step = ref(0);
 
@@ -16,6 +17,9 @@ const previousStep = () => {
 };
 
 const nextStep = () => {
+  if (step.value === 2) {
+    return;
+  }
   if (step.value < steps.length - 1) {
     step.value++;
   }
@@ -43,31 +47,49 @@ watch(values, () => {
   <div class="flex flex-col">
     <h2 class="text-2xl md:text-4xl font-bold m-0">Registro de animal</h2>
 
-    <div class="flex justify-center items-center w-full">
-      <div class="max-w-3xl">
+    <div class="flex md:justify-center items-center w-full">
+      <div class="w-full lg:max-w-3xl">
         <StepperIndicator v-model="step" />
       </div>
     </div>
-
-    <component :is="steps[step]" :formValues="values"></component>
-    <div class="flex items-center justify-center mt-7 mb-5">
-      <div class="flex justify-evenly gap-10">
-        <button
-          class="w-24 font-semibold text-black bg-white border border-primary focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-          @click="previousStep"
-        >
-          Atrás
-        </button>
-        <button
-          class="font-semibold text-black bg-primary focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="submit"
-          @click="nextStep"
-        >
-          Siguiente
-        </button>
-      </div>
-    </div>
+    <Form as="div" @submit="nextStep">
+      <form class="relative">
+        <template v-if="step === 0">
+          <StepOne :formValues="values" />
+        </template>
+        <template v-if="step === 1">
+          <StepTwo :formValues="values" />
+        </template>
+        <template v-if="step === 2">
+          <StepThree :formValues="values" />
+        </template>
+        <div class="flex items-center justify-center mt-7 mb-5">
+          <div class="flex justify-evenly gap-10">
+            <button
+              class="w-24 font-semibold text-black bg-white border border-primary focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button"
+              @click="previousStep"
+            >
+              Atrás
+            </button>
+            <button
+              v-if="step !== 2"
+              class="font-semibold text-black bg-primary focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit"
+            >
+              Siguiente
+            </button>
+            <button
+              v-if="step === 2"
+              class="font-semibold text-black bg-primary focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit"
+            >
+              Terminar
+            </button>
+          </div>
+        </div>
+      </form>
+    </Form>
   </div>
 </template>
 
