@@ -1,4 +1,3 @@
-vacunamodal
 <script lang="ts" setup>
 </script>
 

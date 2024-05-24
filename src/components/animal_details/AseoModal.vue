@@ -1,4 +1,3 @@
-aseoModal
 <script lang="ts" setup>
 import ButtonAddAnimals from "./ButtonAddAnimals.vue";
 </script>
