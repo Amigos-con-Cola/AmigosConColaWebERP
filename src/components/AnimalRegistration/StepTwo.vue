@@ -6,8 +6,8 @@ import { Field, useField } from "vee-validate";
 
 const props = defineProps(["formValues"]);
 
-const imageName = ref(props.formValues.imagen.imageName || "");
-const imageUrl = ref(props.formValues.imagen.imageUrl || "");
+const imageName = ref(props.formValues.imagen?.imageName || "");
+const imageUrl = ref(props.formValues.imagen?.imageUrl || "");
 const isUploading = ref(false);
 const progress = ref(0);
 
