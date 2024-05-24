@@ -2,13 +2,16 @@
 import { ref } from "vue";
 import upload from "@/assets/AnimalRegistration/upload.svg";
 import cancel from "@/assets/AnimalRegistration/cancel.svg";
+import { Field, useField } from "vee-validate";
 
 const props = defineProps(["formValues"]);
 
-const imageName = ref(props.formValues.imageName || "");
-const imageUrl = ref(props.formValues.imageUrl || "");
+const imageName = ref(props.formValues.imagen.imageName || "");
+const imageUrl = ref(props.formValues.imagen.imageUrl || "");
 const isUploading = ref(false);
 const progress = ref(0);
+
+const { handleChange } = useField("imagen");
 
 const inputHandler = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -17,8 +20,7 @@ const inputHandler = (event: Event) => {
     imageName.value = file.name;
     imageUrl.value = URL.createObjectURL(file);
     startUploadSimulation();
-    props.formValues.imageName = imageName.value;
-    props.formValues.imageUrl = imageUrl.value;
+    handleChange({ imageName: imageName.value, imageUrl: imageUrl.value });
   }
 };
 
@@ -38,39 +40,45 @@ const startUploadSimulation = () => {
 const cancelHandler = () => {
   imageName.value = "";
   imageUrl.value = "";
-  props.formValues.imageName = "";
-  props.formValues.imageUrl = "";
+  handleChange({});
 };
 </script>
 
 <template>
   <div class="flex flex-col items-center justify-center">
     <div class="flex items-center justify-center md:w-2/3">
-      <label
-        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-        for="dropzone-file"
-      >
-        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-          <img :src="upload" alt="upload svg" />
-          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-            <span class="font-semibold text-primary"
-              >Click para subir imagen</span
-            >
-            o arrastra y suelta
-          </p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">
-            SVG, PNG, JPG or GIF (MAX. 800x400px)
-          </p>
-        </div>
-        <input
-          id="dropzone-file"
-          accept="image/*"
-          class="hidden"
-          type="file"
-          @input="inputHandler"
-        />
-      </label>
+      <Field v-slot="{ errorMessage }" keep-value name="imagen">
+        <label
+          class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          for="dropzone-file"
+        >
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <img :src="upload" alt="upload svg" />
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <span class="font-semibold text-primary"
+                >Click para subir imagen</span
+              >
+              o arrastra y suelta
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              SVG, PNG, JPG or GIF (MAX. 800x400px)
+            </p>
+          </div>
+          <input
+            id="dropzone-file"
+            accept="image/*"
+            class="hidden"
+            name="imagen"
+            type="file"
+            @input="inputHandler"
+          />
+          <span class="block mt-2 text-sm text-red-600 dark:text-red-500">
+            {{ errorMessage }}
+          </span>
+        </label>
+      </Field>
     </div>
+
     <div v-if="imageName" class="mt-5 w-2/3">
       <h2>Subiendo archivo</h2>
       <div

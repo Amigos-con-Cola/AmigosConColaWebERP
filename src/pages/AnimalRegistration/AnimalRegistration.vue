@@ -3,12 +3,51 @@ import StepperIndicator from "@/components/AnimalRegistration/StepperIndicator.v
 import StepOne from "@/components/AnimalRegistration/StepOne.vue";
 import StepTwo from "@/components/AnimalRegistration/StepTwo.vue";
 import StepThree from "@/components/AnimalRegistration/StepThree.vue";
-import { reactive, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import { Form } from "vee-validate";
+import * as yup from "yup";
+
+const animalRegistrationSchemas = [
+  yup.object().shape({
+    nombre: yup
+      .string()
+      .min(3, "Debe tener al menos 3 caracteres")
+      .max(10, "Debe tener máximo 10 caracteres")
+      .required("El nombre es obligatorio"),
+    especie: yup.string().required("La especie es obligatoria"),
+    edad: yup
+      .number()
+      .required("La edad es obligatoria")
+      .positive("La edad debe ser un número positivo")
+      .integer("La edad debe ser un número entero")
+      .truncate(),
+    genero: yup.string().required("El género es obligatorio"),
+    ubicacion: yup.string().required("La ubicación es obligatoria"),
+    codigo: yup.string().required("El código es obligatorio"),
+    peso: yup
+      .number()
+      .required("El peso es obligatorio")
+      .positive("El peso debe ser positivo")
+      .truncate(),
+    historiaOrigen: yup
+      .string()
+      .required("La historia de origen es obligatoria"),
+  }),
+  yup.object().shape({
+    imagen: yup.object().json().shape({
+      imageName: yup.string(),
+      imageUrl: yup.string(),
+    }),
+  }),
+];
 
 const step = ref(0);
 
 const steps = [StepOne, StepTwo, StepThree];
+
+const currentSchema = computed(() => {
+  return animalRegistrationSchemas[step.value];
+});
 
 const previousStep = () => {
   if (step.value > 0) {
@@ -16,31 +55,15 @@ const previousStep = () => {
   }
 };
 
-const nextStep = () => {
+const nextStep = (values: Object) => {
   if (step.value === 2) {
+    console.log(values);
     return;
   }
   if (step.value < steps.length - 1) {
     step.value++;
   }
 };
-
-const values = reactive({
-  nombre: "",
-  especie: "",
-  edad: "",
-  genero: "",
-  ubicacion: "",
-  codigo: "",
-  peso: "",
-  historiaOrigen: "",
-  imageName: "",
-  imageUrl: "",
-});
-
-watch(values, () => {
-  console.log(values);
-});
 </script>
 
 <template>
@@ -52,7 +75,12 @@ watch(values, () => {
         <StepperIndicator v-model="step" />
       </div>
     </div>
-    <Form as="div" @submit="nextStep">
+    <Form
+      v-slot="{ values }"
+      :validation-schema="currentSchema"
+      as="div"
+      @submit="nextStep"
+    >
       <form class="relative">
         <template v-if="step === 0">
           <StepOne :formValues="values" />
