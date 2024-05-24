@@ -15,27 +15,23 @@ const generoField = useField("genero");
 const handlePerroClick = () => {
   perroIsSelect.value = true;
   gatoIsSelect.value = false;
-  props.formValues.especie = "Perro";
   especiesField.handleChange("Perro");
 };
 const handleGatoClick = () => {
   perroIsSelect.value = false;
   gatoIsSelect.value = true;
-  props.formValues.especie = "Gato";
   especiesField.handleChange("Gato");
 };
 
 const handleMachoClick = () => {
   machoIsSelect.value = true;
   hembraIsSelect.value = false;
-  props.formValues.genero = "Macho";
   generoField.handleChange("Macho");
 };
 
 const handleHembraClick = () => {
   machoIsSelect.value = false;
   hembraIsSelect.value = true;
-  props.formValues.genero = "Hembra";
   generoField.handleChange("Hembra");
 };
 </script>

@@ -9,7 +9,7 @@ const pet = defineProps(["formValues"]);
     >
       <div class="mb-6 flex justify-center">
         <img
-          :src="pet.formValues.imagen.imageUrl"
+          :src="pet.formValues.imagen?.imageUrl"
           alt="pet image"
           class="w-24 h-24 rounded-full border-2 border-black"
         />
