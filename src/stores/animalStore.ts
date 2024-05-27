@@ -41,32 +41,29 @@ export const useAnimals = defineStore("animales", () => {
     return await response.json();
   }
 
-    /**
-     * Create a new animal.
-     * @param animal The animal to create.
-     * @return The created animal.
-     */
-    async function postAnimal(animal: any): Promise<any> {
-        const response = await fetch(`${API_BASE}/api/animals`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(animal),
-        });
+  /**
+   * Create a new animal.
+   * @param animal The animal to create.
+   * @return The created animal.
+   */
+  async function postAnimal(animal: any): Promise<any> {
+    const response = await fetch(`${API_BASE}/api/animals`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(animal),
+    });
 
-        if (!response.ok) {
-            throw new Error("Error creating animal");
-        }
-
-        return await response.json();
+    if (!response.ok) {
+      throw new Error("Error creating animal");
     }
+
+    return await response.json();
+  }
 
   return {
     getPaginated,
-      postAnimal,
+    postAnimal,
   };
-
-
-
 });
