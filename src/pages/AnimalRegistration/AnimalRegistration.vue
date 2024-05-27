@@ -6,6 +6,7 @@ import StepThree from "@/components/AnimalRegistration/StepThree.vue";
 import { computed, ref } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
+import { useAnimals } from "@stores/animalStore.ts";
 
 const animalRegistrationSchemas = [
   yup.object().shape({
@@ -29,9 +30,7 @@ const animalRegistrationSchemas = [
       .required("El peso es obligatorio")
       .positive("El peso debe ser positivo")
       .truncate(),
-    historiaOrigen: yup
-      .string()
-      .required("La historia de origen es obligatoria"),
+    historia: yup.string().required("La historia de origen es obligatoria"),
   }),
   yup.object().shape({
     imagen: yup.object().json().shape({
@@ -55,8 +54,11 @@ const previousStep = () => {
   }
 };
 
-const nextStep = (values: Object) => {
+const nextStep = async (values: any) => {
   if (step.value === 2) {
+    values = { ...values, imagen: values.imagen?.imageUrl };
+    //Crear el nuevo animal con useAnimals
+    await useAnimals().postAnimal(values);
     console.log(values);
     return;
   }

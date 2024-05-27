@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { Field, useField } from "vee-validate";
+import { AnimalSpecies } from "@/enums/animal_species.ts";
+import { AnimalGender } from "@/enums/animal_gender.ts";
 
 const props = defineProps(["formValues"]);
 
@@ -15,36 +17,31 @@ const generoField = useField("genero");
 const handlePerroClick = () => {
   perroIsSelect.value = true;
   gatoIsSelect.value = false;
-  especiesField.handleChange("Perro");
+  especiesField.handleChange(AnimalSpecies.DOG);
 };
 const handleGatoClick = () => {
   perroIsSelect.value = false;
   gatoIsSelect.value = true;
-  especiesField.handleChange("Gato");
+  especiesField.handleChange(AnimalSpecies.CAT);
 };
 
 const handleMachoClick = () => {
   machoIsSelect.value = true;
   hembraIsSelect.value = false;
-  generoField.handleChange("Macho");
+  generoField.handleChange(AnimalGender.MALE);
 };
 
 const handleHembraClick = () => {
   machoIsSelect.value = false;
   hembraIsSelect.value = true;
-  generoField.handleChange("Hembra");
+  generoField.handleChange(AnimalGender.FEMALE);
 };
 </script>
 
 <template>
   <div class="grid gap-6 md:gap-x-24 md:gap-y-5 mb-6 md:grid-cols-2">
     <div class="md:flex md:items-center md:space-x-4">
-      <Field
-        v-slot="{ field, errorMessage }"
-        hidden="true"
-        keep-value
-        name="nombre"
-      >
+      <Field v-slot="{ field, errorMessage }" keep-value name="nombre">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="nombre"
@@ -70,12 +67,7 @@ const handleHembraClick = () => {
     <div
       class="md:col-start-1 md:row-start-2 md:flex md:items-center md:space-x-4"
     >
-      <Field
-        v-slot="{ field, errorMessage }"
-        hidden="true"
-        keep-value
-        name="edad"
-      >
+      <Field v-slot="{ field, errorMessage }" keep-value name="edad">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="edad"
@@ -97,7 +89,7 @@ const handleHembraClick = () => {
     </div>
 
     <div class="md:col-start-2 md:flex md:items-center md:space-x-4">
-      <Field v-slot="{ errorMessage }" hidden="true" keep-value name="especie">
+      <Field v-slot="{ errorMessage }" keep-value name="especie">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 md:mb-0 md:w-24"
           for="especie"
@@ -111,7 +103,7 @@ const handleHembraClick = () => {
             <input
               :class="{
                 'bg-primary w-full h-2/3 ml-3':
-                  perroIsSelect || props.formValues.especie === 'Perro',
+                  perroIsSelect || props.formValues.especie === 'Dog',
                 'hover:bg-sky-300 w-full h-2/3 ml-3': !perroIsSelect,
               }"
               type="button"
@@ -121,7 +113,7 @@ const handleHembraClick = () => {
             <input
               :class="{
                 'bg-primary w-full h-2/3 mr-3':
-                  gatoIsSelect || props.formValues.especie === 'Gato',
+                  gatoIsSelect || props.formValues.especie === 'Cat',
                 'hover:bg-sky-300 w-full h-2/3 mr-3': !gatoIsSelect,
               }"
               type="button"
@@ -137,7 +129,7 @@ const handleHembraClick = () => {
     </div>
 
     <div class="md:col-start-2 md:flex md:items-center md:space-x-4">
-      <Field v-slot="{ errorMessage }" hidden="true" keep-value name="genero">
+      <Field v-slot="{ errorMessage }" keep-value name="genero">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="genero"
@@ -152,7 +144,7 @@ const handleHembraClick = () => {
               id="macho"
               :class="{
                 'bg-primary w-full h-2/3 ml-3':
-                  machoIsSelect || props.formValues.genero === 'Macho',
+                  machoIsSelect || props.formValues.genero === 'Male',
                 'hover:bg-sky-300 w-full h-2/3 ml-3': !machoIsSelect,
               }"
               type="button"
@@ -163,7 +155,7 @@ const handleHembraClick = () => {
               id="hembra"
               :class="{
                 'bg-primary w-full h-2/3 mr-3':
-                  hembraIsSelect || props.formValues.genero === 'Hembra',
+                  hembraIsSelect || props.formValues.genero === 'Female',
                 'hover:bg-sky-300 w-full h-2/3 mr-3': !hembraIsSelect,
               }"
               type="button"
@@ -179,12 +171,7 @@ const handleHembraClick = () => {
     </div>
 
     <div class="md:flex md:items-center md:space-x-4">
-      <Field
-        v-slot="{ field, errorMessage }"
-        hidden="true"
-        keep-value
-        name="ubicacion"
-      >
+      <Field v-slot="{ field, errorMessage }" keep-value name="ubicacion">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="ubicacion"
@@ -207,12 +194,7 @@ const handleHembraClick = () => {
     </div>
 
     <div class="md:flex md:items-center md:space-x-4">
-      <Field
-        v-slot="{ field, errorMessage }"
-        hidden="true"
-        keep-value
-        name="codigo"
-      >
+      <Field v-slot="{ field, errorMessage }" keep-value name="codigo">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="codigo"
@@ -235,12 +217,7 @@ const handleHembraClick = () => {
     </div>
 
     <div class="md:flex md:items-center md:space-x-4">
-      <Field
-        v-slot="{ field, errorMessage }"
-        hidden="true"
-        keep-value
-        name="peso"
-      >
+      <Field v-slot="{ field, errorMessage }" keep-value name="peso">
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="peso"
@@ -264,12 +241,7 @@ const handleHembraClick = () => {
   </div>
 
   <div class="mt-5">
-    <Field
-      v-slot="{ field, errorMessage }"
-      hidden="true"
-      keep-value
-      name="historiaOrigen"
-    >
+    <Field v-slot="{ field, errorMessage }" keep-value name="historia">
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         for="historiaOrigen"
@@ -277,7 +249,7 @@ const handleHembraClick = () => {
       >
       <div class="flex flex-col w-full">
         <textarea
-          id="historiaOrigen"
+          id="historia"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
           placeholder="Fue encontrado en ..."
           v-bind="field"

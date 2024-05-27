@@ -1,5 +1,11 @@
 <script lang="ts" setup>
+import { AnimalSpecies } from "@/enums/animal_species.ts";
+import { AnimalGender } from "@/enums/animal_gender.ts";
+
 const pet = defineProps(["formValues"]);
+
+const especie = pet.formValues.especie === AnimalSpecies.DOG ? "Perro" : "Gato";
+const genero = pet.formValues.genero === AnimalGender.MALE ? "Macho" : "Hembra";
 </script>
 
 <template>
@@ -30,11 +36,11 @@ const pet = defineProps(["formValues"]);
           </div>
           <div class="b-row flex items-center">
             <b class="mr-2">Especie:</b>
-            <span>{{ pet.formValues.especie }}</span>
+            <span>{{ especie }}</span>
           </div>
           <div class="b-row flex items-center">
             <b class="mr-2">Género:</b>
-            <span>{{ pet.formValues.genero }}</span>
+            <span>{{ genero }}</span>
           </div>
           <div class="b-row flex items-center">
             <b class="mr-2">Ubicación:</b>
