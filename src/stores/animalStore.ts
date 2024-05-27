@@ -56,7 +56,7 @@ export const useAnimals = defineStore("animales", () => {
     });
 
     if (!response.ok) {
-      throw new Error("Error creating animal");
+      return response.json();
     }
 
     return await response.json();
