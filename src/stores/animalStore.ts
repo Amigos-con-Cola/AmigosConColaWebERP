@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 interface Animal {
-  id: number;
+  id?: number;
   adoptado: boolean;
   nombre: string;
   edad: number;
@@ -46,20 +46,32 @@ export const useAnimals = defineStore("animales", () => {
    * @param animal The animal to create.
    * @return The created animal.
    */
-  async function postAnimal(animal: any): Promise<any> {
-    const response = await fetch(`${API_BASE}/api/animals`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(animal),
-    });
-
-    if (!response.ok) {
-      return response.json();
+  // En src/stores/animalStore.ts
+  async function postAnimal(animal: Animal): Promise<Animal | null> {
+    // Validar el argumento animal
+    if (!animal || typeof animal !== "object") {
+      console.error("Invalid argument: animal must be an object");
+      return null;
     }
 
-    return await response.json();
+    try {
+      const response = await fetch(`${API_BASE}/api/animals`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(animal),
+      });
+
+      // Manejar los errores HTTP
+      if (!response.ok) {
+        return null;
+      }
+
+      return await response.json();
+    } catch (error: any) {
+      return null;
+    }
   }
 
   return {

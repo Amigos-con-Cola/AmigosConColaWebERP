@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import StepperIndicator from "@/components/AnimalRegistration/StepperIndicator.vue";
-import StepOne from "@/components/AnimalRegistration/StepOne.vue";
-import StepTwo from "@/components/AnimalRegistration/StepTwo.vue";
-import StepThree from "@/components/AnimalRegistration/StepThree.vue";
+import StepperIndicator from "@/components/animal_registration/StepperIndicator.vue";
+import StepOne from "@/components/animal_registration/StepOne.vue";
+import StepTwo from "@/components/animal_registration/StepTwo.vue";
+import StepThree from "@/components/animal_registration/StepThree.vue";
 import { computed, ref } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
@@ -44,6 +44,7 @@ const step = ref(0);
 
 const steps = [StepOne, StepTwo, StepThree];
 
+const animales = useAnimals();
 const currentSchema = computed(() => {
   return animalRegistrationSchemas[step.value];
 });
@@ -56,22 +57,22 @@ const previousStep = () => {
   }
 };
 
+// En la función nextStep
 const nextStep = async (values: any) => {
   if (step.value === 2) {
     values = { ...values, imagen: values.imagen?.imageUrl };
-    //Crear el nuevo animal con useAnimals
-    const res = await useAnimals().postAnimal(values);
-    if (res.ok) {
-      showSuccessToast.value = true;
-      setTimeout(() => {
-        showSuccessToast.value = false;
-      }, 3000);
-    } else {
+    const res = await animales.postAnimal(values);
+    if (!res) {
       showFailToast.value = true;
       setTimeout(() => {
         showFailToast.value = false;
       }, 3000);
+      return;
     }
+    showSuccessToast.value = true;
+    setTimeout(() => {
+      showSuccessToast.value = false;
+    }, 3000);
     return;
   }
   if (step.value < steps.length - 1) {

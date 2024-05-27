@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/vue3";
-import StepTwo from "@/components/AnimalRegistration/StepTwo.vue";
+import StepTwo from "@/components/animal_registration/StepTwo.vue";
 
 const meta: Meta<typeof StepTwo> = {
   component: StepTwo,
