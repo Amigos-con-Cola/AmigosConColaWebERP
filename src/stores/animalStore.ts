@@ -41,7 +41,22 @@ export const useAnimals = defineStore("animales", () => {
     return await response.json();
   }
 
+  /**
+   * Get a single animal by its id.
+   * @param id The number that identifies the animal
+   * @return An animal.
+   */
+  async function getAnimalById(id: number) {
+    const response = await fetch(`${API_BASE}/api/animals/${id}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    return await response.json();
+  }
+
   return {
     getPaginated,
+    getAnimalById,
   };
 });

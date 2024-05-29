@@ -2,8 +2,10 @@
 import Tab from "@/components/Tab.vue";
 import BasePetInfo from "@/components/pet_info/BasePetInfo.vue";
 import { onMounted, ref } from "vue";
-import animalsJSON from "@/fakedata.json";
 import { useRoute } from "vue-router";
+import { useAnimals } from "@stores/animalStore.ts";
+
+const animals = useAnimals();
 
 const pet = ref<Pet>({
   codigo: "",
@@ -30,22 +32,11 @@ interface Pet {
 }
 
 const petId = ref();
-const route = useRoute(); // Usa useRoute para acceder a la ruta actual
-petId.value = route.params.id; // Asigna el valor de route.params.id a petId.value
+const route = useRoute();
+petId.value = route.params.id;
 
-const getPetById = () => {
-  const animal = animalsJSON.filter(
-    (animal) => animal.id === parseInt(petId.value),
-  )[0];
-  pet.value.codigo = `XYZ${petId.value}`;
-  pet.value.nombre = animal.nombre;
-  pet.value.edad = animal.edad;
-  pet.value.especie = animal.tipo;
-  pet.value.genero = animal.genero;
-  pet.value.ubicacion = "xdr";
-  pet.value.peso = 50;
-  pet.value.adoptado = animal.estado;
-  pet.value.imagen = animal.imagen;
+const getPetById = async () => {
+  pet.value = await animals.getAnimalById(petId.value);
 };
 
 onMounted(() => {
