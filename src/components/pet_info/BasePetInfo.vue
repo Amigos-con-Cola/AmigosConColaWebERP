@@ -29,7 +29,7 @@ const { pet } = defineProps<{
       />
     </div>
     <div class="flex flex-wrap md:flex-col lg:flex-col">
-      <div class="b-row mr-[2.05rem]">
+      <div v-if="pet.codigo" class="b-row mr-[2.05rem]">
         <b class="mr-2 sm:mr-9 lg:mr-8">Código:</b>
         <span>{{ pet.codigo }}</span>
       </div>
