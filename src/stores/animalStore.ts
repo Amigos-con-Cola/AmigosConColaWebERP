@@ -46,7 +46,6 @@ export const useAnimals = defineStore("animales", () => {
    * @param animal The animal to create.
    * @return The created animal.
    */
-  // En src/stores/animalStore.ts
   async function postAnimal(animal: Animal): Promise<Animal | null> {
     // Validar el argumento animal
     if (!animal || typeof animal !== "object") {
@@ -74,8 +73,23 @@ export const useAnimals = defineStore("animales", () => {
     }
   }
 
+  /**
+   * Get a single animal by its id.
+   * @param id The number that identifies the animal
+   * @return An animal.
+   */
+  async function getAnimalById(id: number) {
+    const response = await fetch(`${API_BASE}/api/animals/${id}`);
+    if (!response.ok) {
+      return null;
+    }
+
+    return await response.json();
+  }
+
   return {
     getPaginated,
     postAnimal,
+    getAnimalById,
   };
 });
