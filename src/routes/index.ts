@@ -17,6 +17,12 @@ const routes = [
     path: "/pet-info/:id",
     component: () => import("@pages/PetInfo.vue"),
   },
+  {
+    path: "/crear-animal",
+    name: "crear-animal",
+    component: () =>
+      import("@pages/animal_registration/AnimalRegistration.vue"),
+  },
 ];
 
 const router = createRouter({

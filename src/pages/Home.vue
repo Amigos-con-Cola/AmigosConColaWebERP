@@ -10,6 +10,7 @@ import filterIcon from "@/assets/home_page/filter.svg";
 import { onMounted, ref, watch } from "vue";
 import { useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
+import { useRouter } from "vue-router";
 
 export interface Animal {
   id: number;
@@ -21,9 +22,11 @@ export interface Animal {
   especie: string;
 }
 
+const router = useRouter();
+
 const animals = useAnimals();
 
-let animales = [] as Animal[];
+let animales: Animal[] = [];
 const animalesFiltered = ref<Animal[]>(animales);
 
 const search = ref("");
@@ -74,15 +77,21 @@ const selectCats = () => {
   isCatSelect.value = true;
   isDogSelect.value = false;
 };
+
+const onRegisterAnimalClicked = () => {
+  router.push({
+    name: "crear-animal",
+  });
+};
 </script>
 
 <template>
   <div class="flex flex-col justify-center">
     <div class="flex justify-start lg:justify-end items-center gap-3 mx-4 mt-5">
       <SearchInput v-model="search" />
-      <AddButton
-        ><span class="hidden md:flex">Registrar Animal</span></AddButton
-      >
+      <AddButton @click="onRegisterAnimalClicked">
+        <span class="hidden md:flex">Registrar Animal</span>
+      </AddButton>
     </div>
     <div class="mt-5 mb-5 flex items-center gap-3">
       <h2 class="text-2xl md:text-4xl font-bold m-0">Categorías</h2>
