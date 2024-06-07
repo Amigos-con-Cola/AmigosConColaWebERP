@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: "/pet-info/:id",
-    component: () => import("@pages/PetInfo.vue"),
+    component: () => import("@pages/AnimalInfo/PetInfo.vue"),
   },
   {
     path: "/crear-animal",
