@@ -12,13 +12,13 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
 
 <template>
   <a
-    href="#"
     class="size-40 md:w-[15rem] h-max max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    href="#"
   >
     <img
-      class="h-52 md:size-64 w-full rounded-t-lg"
       :src="animal.imagen"
       alt="animal image"
+      class="h-52 md:size-64 w-full rounded-t-lg"
     />
     <div class="pl-4 py-3 pr-3 text-[0.8rem]">
       <div class="flex gap-2 w-min items-center mb-2">
@@ -27,7 +27,7 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
         >
           {{ animal.nombre }}
         </h5>
-        <img class="size-6" :src="genero" alt="" />
+        <img :src="genero" alt="" class="size-6" />
       </div>
       <div>
         <p class="text-gray-700 dark:text-gray-400">

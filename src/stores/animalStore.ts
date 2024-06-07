@@ -27,7 +27,7 @@ export const useAnimals = defineStore("animales", () => {
   async function getPaginated(
     page: number = 1,
     perPage: number = 12,
-    filter?: string
+    filter?: string,
   ): Promise<Animal[]> {
     if (page < 0) return [];
     if (perPage < 0) return [];

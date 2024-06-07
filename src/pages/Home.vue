@@ -9,10 +9,9 @@ import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
 import filterIcon from "@/assets/home_page/filter.svg";
 import { onMounted, ref, watch } from "vue";
-import { useAnimals } from "@stores/animalStore.ts";
+import { Animal, useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
 import { useRouter } from "vue-router";
-import { Animal } from "@stores/animalStore.ts";
 
 const router = useRouter();
 const animalsToShow = 12;
@@ -34,7 +33,7 @@ watch(search, () => {
   currentSpecie.value = "";
 
   animalesFiltered.value = backAnimals.filter((animal) =>
-    animal.nombre.toLowerCase().includes(search.value.toLowerCase())
+    animal.nombre.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
 
@@ -51,7 +50,7 @@ const selectDogs = async () => {
     currentSpecie.value = "";
     animalesFiltered.value = await api.getPaginated(
       currentPage.value,
-      animalsToShow
+      animalsToShow,
     );
     backAnimals = animalesFiltered.value;
     return;
@@ -70,7 +69,7 @@ const selectCats = async () => {
 
     animalesFiltered.value = await api.getPaginated(
       currentPage.value,
-      animalsToShow
+      animalsToShow,
     );
     backAnimals = animalesFiltered.value;
     return;
@@ -92,7 +91,7 @@ const handleChangePage = async (page: number) => {
   animalesFiltered.value = await api.getPaginated(
     page,
     animalsToShow,
-    currentSpecie.value
+    currentSpecie.value,
   );
   backAnimals = animalesFiltered.value;
   currentPage.value = page;
@@ -106,7 +105,7 @@ const handleNextPage = async () => {
   animalesFiltered.value = await api.getPaginated(
     currentPage.value,
     animalsToShow,
-    currentSpecie.value
+    currentSpecie.value,
   );
   backAnimals = animalesFiltered.value;
 };
@@ -119,7 +118,7 @@ const handlePreviousPage = async () => {
   animalesFiltered.value = await api.getPaginated(
     currentPage.value,
     animalsToShow,
-    currentSpecie.value
+    currentSpecie.value,
   );
   backAnimals = animalesFiltered.value;
 };
@@ -160,8 +159,8 @@ const handlePreviousPage = async () => {
       <Pagination
         :currentPage="currentPage"
         :pages="3"
-        @pageChange="handleChangePage"
         @nextPage="handleNextPage"
+        @pageChange="handleChangePage"
         @previousPage="handlePreviousPage"
       />
     </div>
