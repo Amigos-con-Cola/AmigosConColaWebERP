@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import maleIcon from "../../assets/home_page/male.svg";
 import femaleIcon from "../../assets/home_page/female.svg";
-import { Animal } from "@pages/Home.vue";
+import { Animal } from "@stores/animalStore.ts";
 import { AnimalGender } from "@/enums/animal_gender.ts";
 
 const { animal } = defineProps<{ animal: Animal }>();

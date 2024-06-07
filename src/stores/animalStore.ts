@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-interface Animal {
+export interface Animal {
   id?: number;
   adoptado: boolean;
   nombre: string;
@@ -21,18 +21,25 @@ export const useAnimals = defineStore("animales", () => {
    * Get a paginated list of all animals.
    * @param page The page number
    * @param perPage How many items per page
+   * @param filter The filter to apply
    * @return A list of animals.
    */
   async function getPaginated(
     page: number = 1,
-    perPage: number = 10,
+    perPage: number = 12,
+    filter?: string
   ): Promise<Animal[]> {
     if (page < 0) return [];
     if (perPage < 0) return [];
 
-    const response = await fetch(
-      `${API_BASE}/api/animals?page=${page}&perPage=${perPage}`,
-    );
+    const url = new URL(`${API_BASE}/api/animals`);
+    url.searchParams.append("page", page.toString());
+    url.searchParams.append("perPage", perPage.toString());
+    if (filter) {
+      url.searchParams.append("species", filter);
+    }
+
+    const response = await fetch(url.toString());
 
     if (!response.ok) {
       return [];
@@ -50,7 +57,7 @@ export const useAnimals = defineStore("animales", () => {
   async function postAnimal(animal: Animal): Promise<Animal | null> {
     // Validar el argumento animal
     if (!animal || typeof animal !== "object") {
-      console.error("Invalid argument: animal must be an object");
+      console.log("Invalid argument: animal must be an object");
       return null;
     }
 
@@ -63,19 +70,42 @@ export const useAnimals = defineStore("animales", () => {
         body: JSON.stringify(animal),
       });
 
-      // Manejar los errores HTTP
       if (!response.ok) {
+        console.error("Failed to create animal");
         return null;
       }
 
       return await response.json();
     } catch (error: any) {
+      console.error(error.message);
       return null;
     }
   }
 
+  /**
+   * Get an animal by ID.
+   * @param id the id of the animal to get.
+   * @return an Animal object.
+   */
+
+  async function getAnimalById(id: number): Promise<Animal | null> {
+    try {
+      const response: Response = await fetch(`${API_BASE}/api/animals/${id}`);
+
+      if (!response.ok) {
+        console.error("Failed to get animal");
+        return null;
+      }
+
+      return await response.json();
+    } catch (error: any) {
+      console.error(error.message);
+      return null;
+    }
+  }
   return {
     getPaginated,
     postAnimal,
+    getAnimalById,
   };
 });
