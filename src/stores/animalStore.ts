@@ -66,7 +66,7 @@ export const useAnimals = defineStore("animales", () => {
   async function postAnimal(animal: Animal): Promise<Animal | null> {
     // Validar el argumento animal
     if (!animal || typeof animal !== "object") {
-      console.log("Invalid argument: animal must be an object");
+      console.error("Invalid argument: animal must be an object");
       return null;
     }
 
