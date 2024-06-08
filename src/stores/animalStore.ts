@@ -32,6 +32,7 @@ export const useAnimals = defineStore("animales", () => {
     if (page < 0) return [];
     if (perPage < 0) return [];
 
+
     const url = new URL(`${API_BASE}/api/animals`);
     url.searchParams.append("page", page.toString());
     url.searchParams.append("perPage", perPage.toString());
@@ -47,7 +48,9 @@ export const useAnimals = defineStore("animales", () => {
         return [];
       }
 
+
       return response.json();
+
     } catch (error) {
       console.error("Error fetching animals:", error);
       return [];
