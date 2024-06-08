@@ -30,21 +30,15 @@ export const useAnimals = defineStore("animales", () => {
     if (page < 0) return [];
     if (perPage < 0) return [];
 
-    try {
-      const response = await fetch(
-        `${API_BASE}/api/animals?page=${page}&perPage=${perPage}`,
-      );
+    const response = await fetch(
+      `${API_BASE}/api/animals?page=${page}&perPage=${perPage}`,
+    );
 
-      if (!response.ok) {
-        console.error(`Error fetching animals: ${response.statusText}`);
-        return [];
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching animals:", error);
+    if (!response.ok) {
       return [];
     }
+
+    return await response.json();
   }
 
   /**
@@ -52,7 +46,9 @@ export const useAnimals = defineStore("animales", () => {
    * @param animal The animal to create.
    * @return The created animal.
    */
+  // En src/stores/animalStore.ts
   async function postAnimal(animal: Animal): Promise<Animal | null> {
+    // Validar el argumento animal
     if (!animal || typeof animal !== "object") {
       console.error("Invalid argument: animal must be an object");
       return null;
@@ -69,33 +65,11 @@ export const useAnimals = defineStore("animales", () => {
 
       // Manejar los errores HTTP
       if (!response.ok) {
-        console.error(`Error creating animal: ${response.statusText}`);
         return null;
       }
 
       return await response.json();
     } catch (error: any) {
-      console.error("Error creating animal:", error);
-      return null;
-    }
-  }
-
-  /**
-   * Get a single animal by its id.
-   * @param id The number that identifies the animal
-   * @return An animal.
-   */
-  async function getAnimalById(id: number): Promise<Animal | null> {
-    try {
-      const response = await fetch(`${API_BASE}/api/animals/${id}`);
-      if (!response.ok) {
-        console.error(`Error fetching animal by ID: ${response.statusText}`);
-        return null;
-      }
-
-      return await response.json();
-    } catch (error: any) {
-      console.error("Error fetching animal by ID:", error);
       return null;
     }
   }
