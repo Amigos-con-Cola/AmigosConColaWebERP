@@ -5,7 +5,10 @@ const routes = [
   { path: "/home", component: () => import("@/pages/Home.vue") },
   { path: "/adopciones", component: () => import("@pages/Adoption.vue") },
   { path: "/inventario", component: () => import("@pages/Inventory.vue") },
-  { path: "/donaciones", component: () => import("@pages/Donation.vue") },
+  {
+    path: "/donaciones",
+    component: () => import("@pages/Donation.vue"),
+  },
   {
     path: "/solicitudes-adopciones",
     component: () => import("@pages/AdoptionRequests.vue"),
