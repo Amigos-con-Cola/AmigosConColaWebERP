@@ -39,18 +39,15 @@ export const useAnimals = defineStore("animales", () => {
       url.searchParams.append("species", filter);
     }
 
-    const response = await fetch(url.toString());
     try {
-      const response = await fetch(
-        `${API_BASE}/api/animals?page=${page}&perPage=${perPage}`,
-      );
+    const response = await fetch(url.toString());
 
       if (!response.ok) {
         console.error(`Error fetching animals: ${response.statusText}`);
         return [];
       }
 
-      return await response.json();
+      return response.json();
     } catch (error) {
       console.error("Error fetching animals:", error);
       return [];
