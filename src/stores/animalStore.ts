@@ -95,30 +95,9 @@ export const useAnimals = defineStore("animales", () => {
     }
   }
 
-  /**
-   * Get a single animal by its id.
-   * @param id The number that identifies the animal
-   * @return An animal.
-   */
-  async function getAnimalById(id: number): Promise<Animal | null> {
-    try {
-      const response = await fetch(`${API_BASE}/api/animals/${id}`);
-      if (!response.ok) {
-        console.error(`Error fetching animal by ID: ${response.statusText}`);
-        return null;
-      }
-
-      return await response.json();
-    } catch (error: any) {
-      console.error("Error fetching animal by ID:", error);
-      return null;
-    }
-  }
-
   return {
     getPaginated,
     getAnimalById,
     postAnimal,
-    getAnimalById,
   };
 });
