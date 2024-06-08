@@ -43,7 +43,7 @@
             </label>
             <input
               id="fecha"
-              class="border-primary mb-6 text-gray-900 focus:border-primary-600 w-full text-[0.8rem] sm:[1.5rem] md:text-[1rem] lg:text-[1.3rem]"
+              class="border-primary mb-7 text-gray-900 focus:border-primary-600 w-full text-[0.8rem] sm:[1.5rem] md:text-[1rem] lg:text-[1.3rem]"
               name="fecha"
               type="date"
             />
