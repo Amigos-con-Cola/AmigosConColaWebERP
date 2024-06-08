@@ -8,11 +8,10 @@ import catIcon from "@/assets/home_page/cat.svg";
 import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
 import filterIcon from "@/assets/home_page/filter.svg";
-import { onMounted, ref, watch } from "vue";
-import { useAnimals } from "@stores/animalStore.ts";
-import { AnimalSpecies } from "@/enums/animal_species.ts";
-import { useRouter } from "vue-router";
-import { Animal } from "@stores/animalStore.ts";
+import {onMounted, ref, watch} from "vue";
+import {Animal, useAnimals} from "@stores/animalStore.ts";
+import {AnimalSpecies} from "@/enums/animal_species.ts";
+import {useRouter} from "vue-router";
 
 const router = useRouter();
 const animalsToShow = 12;
@@ -127,7 +126,7 @@ const handlePreviousPage = async () => {
 <template>
   <div class="flex flex-col justify-center">
     <div class="flex justify-start lg:justify-end items-center gap-3 mx-4 mt-5">
-      <SearchInput v-model="search" />
+      <SearchInput v-model="search"/>
       <AddButton @click="onRegisterAnimalClicked">
         <span class="hidden md:flex">Registrar Animal</span>
       </AddButton>
@@ -141,7 +140,7 @@ const handlePreviousPage = async () => {
       />
     </div>
     <div class="flex flex-wrap gap-3 mt-4 mb-7">
-      <FilterButton :icon="filterIcon" text="Filtrar" />
+      <FilterButton :icon="filterIcon" text="Filtrar"/>
       <FilterButton
           :icon="dogIcon"
           :isSelect="isDogSelect"
@@ -159,8 +158,8 @@ const handlePreviousPage = async () => {
       <Pagination
           :currentPage="currentPage"
           :pages="3"
-          @pageChange="handleChangePage"
           @nextPage="handleNextPage"
+          @pageChange="handleChangePage"
           @previousPage="handlePreviousPage"
       />
     </div>
@@ -171,7 +170,7 @@ const handlePreviousPage = async () => {
           :to="`/pet-info/${animal.id}`"
           class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap mt-2"
       >
-        <AnimalCard :animal="animal" />
+        <AnimalCard :animal="animal"/>
       </RouterLink>
     </section>
   </div>
