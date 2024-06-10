@@ -9,14 +9,13 @@ import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
 import filterIcon from "@/assets/home_page/filter.svg";
 import { onMounted, ref, watch } from "vue";
-import { Animal, useAnimals } from "@stores/animalStore.ts";
+import { Animal, GetResponse, useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const animalsToShow = 12;
-//TODO: Hacer dinamico los cuadrados dependiendo de la cantidad de animales que hay.
-const squareNumber = 3;
+const squareNumber = ref(3);
 const api = useAnimals();
 
 const animalesFiltered = ref<Animal[]>([]);
@@ -38,12 +37,14 @@ watch(search, () => {
 });
 
 onMounted(async () => {
-  // TODO: Manejar paginacion.
-  animalesFiltered.value = await api.getPaginated(
+  const response: GetResponse | null = await api.getPaginated(
     1,
     animalsToShow,
     currentSpecie.value,
   );
+  if (!response) return;
+  animalesFiltered.value = response?.data;
+  squareNumber.value = response.totalPages;
   backAnimals = animalesFiltered.value;
 });
 
@@ -51,13 +52,15 @@ const selectDogs = async () => {
   if (isDogSelect.value) {
     isDogSelect.value = false;
     currentSpecie.value = "";
-    animalesFiltered.value = await api.getPaginated(
-      currentPage.value,
-      animalsToShow,
-    );
+    currentPage.value = 1;
+    const response = await api.getPaginated(currentPage.value, animalsToShow);
+    if (!response) return;
+    animalesFiltered.value = response.data;
+    squareNumber.value = response.totalPages;
     backAnimals = animalesFiltered.value;
     return;
   }
+  currentPage.value = 1;
   currentSpecie.value = AnimalSpecies.DOG;
   await handleChangePage(currentPage.value);
 
@@ -69,14 +72,15 @@ const selectCats = async () => {
   if (isCatSelect.value) {
     isCatSelect.value = false;
     currentSpecie.value = "";
-
-    animalesFiltered.value = await api.getPaginated(
-      currentPage.value,
-      animalsToShow,
-    );
+    currentPage.value = 1;
+    const response = await api.getPaginated(currentPage.value, animalsToShow);
+    if (!response) return;
+    animalesFiltered.value = response.data;
+    squareNumber.value = response.totalPages;
     backAnimals = animalesFiltered.value;
     return;
   }
+  currentPage.value = 1;
   currentSpecie.value = AnimalSpecies.CAT;
   await handleChangePage(currentPage.value);
 
@@ -91,25 +95,30 @@ const onRegisterAnimalClicked = () => {
 };
 
 const handleChangePage = async (page: number) => {
-  animalesFiltered.value = await api.getPaginated(
+  const response = await api.getPaginated(
     page,
     animalsToShow,
     currentSpecie.value,
   );
+  if (!response) return;
+  animalesFiltered.value = response.data;
+  squareNumber.value = response.totalPages;
   backAnimals = animalesFiltered.value;
   currentPage.value = page;
 };
 
 const handleNextPage = async () => {
-  if (currentPage.value === squareNumber) {
+  if (currentPage.value === squareNumber.value + 1) {
     return;
   }
   currentPage.value += 1;
-  animalesFiltered.value = await api.getPaginated(
+  const response = await api.getPaginated(
     currentPage.value,
     animalsToShow,
     currentSpecie.value,
   );
+  if (!response) return;
+  animalesFiltered.value = response.data;
   backAnimals = animalesFiltered.value;
 };
 
@@ -118,11 +127,14 @@ const handlePreviousPage = async () => {
     return;
   }
   currentPage.value -= 1;
-  animalesFiltered.value = await api.getPaginated(
+  const response = await api.getPaginated(
     currentPage.value,
     animalsToShow,
     currentSpecie.value,
   );
+  if (!response) return;
+  animalesFiltered.value = response.data;
+  squareNumber.value = response.totalPages;
   backAnimals = animalesFiltered.value;
 };
 </script>
@@ -161,7 +173,7 @@ const handlePreviousPage = async () => {
     <div class="flex justify-start">
       <Pagination
         :currentPage="currentPage"
-        :pages="3"
+        :pages="squareNumber"
         @nextPage="handleNextPage"
         @pageChange="handleChangePage"
         @previousPage="handlePreviousPage"

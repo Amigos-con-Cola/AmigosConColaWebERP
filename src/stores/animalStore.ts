@@ -14,6 +14,13 @@ export interface Animal {
   codigo: string;
 }
 
+export interface GetResponse {
+  data: Animal[];
+  nextPage: number;
+  totalItems: number;
+  totalPages: number;
+}
+
 export const useAnimals = defineStore("animales", () => {
   const API_BASE = "http://localhost:5130";
 
@@ -28,9 +35,9 @@ export const useAnimals = defineStore("animales", () => {
     page: number = 1,
     perPage: number = 12,
     filter?: string,
-  ): Promise<Animal[]> {
-    if (page < 0) return [];
-    if (perPage < 0) return [];
+  ): Promise<GetResponse | null> {
+    if (page < 0) return null;
+    if (perPage < 0) return null;
 
     const url = new URL(`${API_BASE}/api/animals`);
     url.searchParams.append("page", page.toString());
@@ -44,13 +51,13 @@ export const useAnimals = defineStore("animales", () => {
 
       if (!response.ok) {
         console.error(`Error fetching animals: ${response.statusText}`);
-        return [];
+        return null;
       }
 
       return response.json();
     } catch (error) {
       console.error("Error fetching animals:", error);
-      return [];
+      return null;
     }
   }
 

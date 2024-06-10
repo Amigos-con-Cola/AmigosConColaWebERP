@@ -49,9 +49,9 @@ const handleClick = (pagina: number) => {
       <li v-for="pagina in props.pages" :key="pagina">
         <button
           :class="{
-            'flex items-center justify-center px-3 h-8 bg-primary/70 leading-tight text-gray-500  border border-gray-300  hover:text-gray-700':
+            'flex items-center justify-center px-3 h-8 bg-primary/70 leading-tight text-base  border border-gray-300  hover:text-gray-700':
               props.currentPage === pagina,
-            'flex items-center justify-center px-3 h-8 bg-white leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700':
+            'flex items-center justify-center px-3 h-8 bg-white leading-tight text-base  border border-gray-300 hover:bg-gray-100 hover:text-gray-700':
               props.currentPage !== pagina,
           }"
           @click="handleClick(pagina)"
