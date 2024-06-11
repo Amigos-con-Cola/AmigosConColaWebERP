@@ -21,11 +21,8 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
     <img
       class="h-52 md:size-64 w-full rounded-t-lg"
       :src="
-        animal.imagen
-          ? animal.imagen
-          : animal.especie === AnimalSpecies.DOG
-            ? dogUrl
-            : catUrl
+        animal.imagen ??
+        (animal.especie === AnimalSpecies.DOG ? dogUrl : catUrl)
       "
       alt="animal image"
     />
