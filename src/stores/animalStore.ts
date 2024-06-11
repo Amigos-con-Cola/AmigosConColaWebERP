@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-interface Animal {
+export interface Animal {
   id?: number;
   adoptado: boolean;
   nombre: string;
@@ -14,6 +14,13 @@ interface Animal {
   codigo: string;
 }
 
+export interface GetResponse {
+  data: Animal[];
+  nextPage: number;
+  totalItems: number;
+  totalPages: number;
+}
+
 export const useAnimals = defineStore("animales", () => {
   const API_BASE = "http://localhost:5130";
 
@@ -21,29 +28,36 @@ export const useAnimals = defineStore("animales", () => {
    * Get a paginated list of all animals.
    * @param page The page number
    * @param perPage How many items per page
+   * @param filter The filter to apply
    * @return A list of animals.
    */
   async function getPaginated(
     page: number = 1,
-    perPage: number = 10,
-  ): Promise<Animal[]> {
-    if (page < 0) return [];
-    if (perPage < 0) return [];
+    perPage: number = 12,
+    filter?: string,
+  ): Promise<GetResponse | null> {
+    if (page < 0) return null;
+    if (perPage < 0) return null;
+
+    const url = new URL(`${API_BASE}/api/animals`);
+    url.searchParams.append("page", page.toString());
+    url.searchParams.append("perPage", perPage.toString());
+    if (filter) {
+      url.searchParams.append("species", filter);
+    }
 
     try {
-      const response = await fetch(
-        `${API_BASE}/api/animals?page=${page}&perPage=${perPage}`,
-      );
+      const response = await fetch(url.toString());
 
       if (!response.ok) {
         console.error(`Error fetching animals: ${response.statusText}`);
-        return [];
+        return null;
       }
 
-      return await response.json();
+      return response.json();
     } catch (error) {
       console.error("Error fetching animals:", error);
-      return [];
+      return null;
     }
   }
 
@@ -69,13 +83,14 @@ export const useAnimals = defineStore("animales", () => {
         body: JSON.stringify(animal),
       });
 
-      // Manejar los errores HTTP
       if (!response.ok) {
+        console.error("Failed to create animal");
         return null;
       }
 
       return await response.json();
     } catch (error: any) {
+      console.error(error.message);
       return null;
     }
   }

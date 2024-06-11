@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import maleIcon from "../../assets/home_page/male.svg";
 import femaleIcon from "../../assets/home_page/female.svg";
-import { Animal } from "@pages/Home.vue";
+import { Animal } from "@stores/animalStore.ts";
 import { AnimalGender } from "@/enums/animal_gender.ts";
 import dogUrl from "@/assets/images/dog_default.jpg";
 import catUrl from "@/assets/images/cat_default.jpg";
@@ -15,8 +15,8 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
 
 <template>
   <a
-    href="#"
     class="size-40 md:w-[15rem] h-max max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    href="#"
   >
     <img
       class="h-52 md:size-64 w-full rounded-t-lg"
@@ -36,7 +36,7 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
         >
           {{ animal.nombre }}
         </h5>
-        <img class="size-6" :src="genero" alt="" />
+        <img :src="genero" alt="" class="size-6" />
       </div>
       <div>
         <p class="text-gray-700 dark:text-gray-400">

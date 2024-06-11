@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import AddButton from "@/components/home_page/AddButton.vue";
 import SearchInput from "@/components/home_page/SearchInput.vue";
+import Pagination from "@/components/home_page/Pagination.vue";
 import FilterButton from "@/components/home_page/FilterButton.vue";
 import AnimalCard from "@/components/home_page/AnimalCard.vue";
 import catIcon from "@/assets/home_page/cat.svg";
@@ -8,71 +9,80 @@ import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
 import filterIcon from "@/assets/home_page/filter.svg";
 import { onMounted, ref, watch } from "vue";
-import { useAnimals } from "@stores/animalStore.ts";
+import { Animal, GetResponse, useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
 import { useRouter } from "vue-router";
 
-export interface Animal {
-  id: number;
-  nombre: string;
-  edad: number;
-  genero: string;
-  imagen: string;
-  adoptado: boolean;
-  especie: string;
-}
-
 const router = useRouter();
+const animalsToShow = 12;
+const squareNumber = ref(3);
+const api = useAnimals();
 
-const animals = useAnimals();
-
-let animales: Animal[] = [];
-const animalesFiltered = ref<Animal[]>(animales);
-
+const animalesFiltered = ref<Animal[]>([]);
+let backAnimals: Animal[] = [];
 const search = ref("");
 const isDogSelect = ref(false);
 const isCatSelect = ref(false);
+const currentPage = ref(1);
+const currentSpecie = ref("");
 
 watch(search, () => {
   isCatSelect.value = false;
   isDogSelect.value = false;
-  animalesFiltered.value = animales.filter((animal) =>
+  currentSpecie.value = "";
+
+  animalesFiltered.value = backAnimals.filter((animal) =>
     animal.nombre.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
 
 onMounted(async () => {
-  // TODO: Manejar paginacion.
-  const as = await animals.getPaginated();
-  animales = as;
-  animalesFiltered.value = as;
+  const response: GetResponse | null = await api.getPaginated(
+    1,
+    animalsToShow,
+    currentSpecie.value,
+  );
+  if (!response) return;
+  animalesFiltered.value = response?.data;
+  squareNumber.value = response.totalPages;
+  backAnimals = animalesFiltered.value;
 });
 
-const selectDogs = () => {
+const selectDogs = async () => {
   if (isDogSelect.value) {
     isDogSelect.value = false;
-    animalesFiltered.value = animales;
+    currentSpecie.value = "";
+    currentPage.value = 1;
+    const response = await api.getPaginated(currentPage.value, animalsToShow);
+    if (!response) return;
+    animalesFiltered.value = response.data;
+    squareNumber.value = response.totalPages;
+    backAnimals = animalesFiltered.value;
     return;
   }
-
-  animalesFiltered.value = animales.filter(
-    (animal) => animal.especie === AnimalSpecies.DOG,
-  );
+  currentPage.value = 1;
+  currentSpecie.value = AnimalSpecies.DOG;
+  await handleChangePage(currentPage.value);
 
   isDogSelect.value = true;
   isCatSelect.value = false;
 };
 
-const selectCats = () => {
+const selectCats = async () => {
   if (isCatSelect.value) {
     isCatSelect.value = false;
-    animalesFiltered.value = animales;
+    currentSpecie.value = "";
+    currentPage.value = 1;
+    const response = await api.getPaginated(currentPage.value, animalsToShow);
+    if (!response) return;
+    animalesFiltered.value = response.data;
+    squareNumber.value = response.totalPages;
+    backAnimals = animalesFiltered.value;
     return;
   }
-
-  animalesFiltered.value = animales.filter(
-    (animal) => animal.especie === AnimalSpecies.CAT,
-  );
+  currentPage.value = 1;
+  currentSpecie.value = AnimalSpecies.CAT;
+  await handleChangePage(currentPage.value);
 
   isCatSelect.value = true;
   isDogSelect.value = false;
@@ -82,6 +92,50 @@ const onRegisterAnimalClicked = () => {
   router.push({
     name: "crear-animal",
   });
+};
+
+const handleChangePage = async (page: number) => {
+  const response = await api.getPaginated(
+    page,
+    animalsToShow,
+    currentSpecie.value,
+  );
+  if (!response) return;
+  animalesFiltered.value = response.data;
+  squareNumber.value = response.totalPages;
+  backAnimals = animalesFiltered.value;
+  currentPage.value = page;
+};
+
+const handleNextPage = async () => {
+  if (currentPage.value === squareNumber.value + 1) {
+    return;
+  }
+  currentPage.value += 1;
+  const response = await api.getPaginated(
+    currentPage.value,
+    animalsToShow,
+    currentSpecie.value,
+  );
+  if (!response) return;
+  animalesFiltered.value = response.data;
+  backAnimals = animalesFiltered.value;
+};
+
+const handlePreviousPage = async () => {
+  if (currentPage.value === 1) {
+    return;
+  }
+  currentPage.value -= 1;
+  const response = await api.getPaginated(
+    currentPage.value,
+    animalsToShow,
+    currentSpecie.value,
+  );
+  if (!response) return;
+  animalesFiltered.value = response.data;
+  squareNumber.value = response.totalPages;
+  backAnimals = animalesFiltered.value;
 };
 </script>
 
@@ -114,6 +168,15 @@ const onRegisterAnimalClicked = () => {
         :isSelect="isCatSelect"
         text="Gatos"
         @click="selectCats"
+      />
+    </div>
+    <div class="flex justify-start">
+      <Pagination
+        :currentPage="currentPage"
+        :pages="squareNumber"
+        @nextPage="handleNextPage"
+        @pageChange="handleChangePage"
+        @previousPage="handlePreviousPage"
       />
     </div>
     <section class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap mt-2">
