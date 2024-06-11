@@ -108,7 +108,7 @@ const handleChangePage = async (page: number) => {
 };
 
 const handleNextPage = async () => {
-  if (currentPage.value === squareNumber.value + 1) {
+  if (currentPage.value === squareNumber.value) {
     return;
   }
   currentPage.value += 1;
@@ -170,15 +170,7 @@ const handlePreviousPage = async () => {
         @click="selectCats"
       />
     </div>
-    <div class="flex justify-start">
-      <Pagination
-        :currentPage="currentPage"
-        :pages="squareNumber"
-        @nextPage="handleNextPage"
-        @pageChange="handleChangePage"
-        @previousPage="handlePreviousPage"
-      />
-    </div>
+
     <section class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap mt-2">
       <RouterLink
         v-for="animal in animalesFiltered"
@@ -189,5 +181,14 @@ const handlePreviousPage = async () => {
         <AnimalCard :animal="animal" />
       </RouterLink>
     </section>
+    <div class="flex justify-center py-10">
+      <Pagination
+        :currentPage="currentPage"
+        :pages="squareNumber"
+        @nextPage="handleNextPage"
+        @pageChange="handleChangePage"
+        @previousPage="handlePreviousPage"
+      />
+    </div>
   </div>
 </template>
