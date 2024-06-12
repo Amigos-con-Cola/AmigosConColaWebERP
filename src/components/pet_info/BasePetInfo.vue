@@ -43,7 +43,7 @@ const { pet } = defineProps<{
       </div>
       <div class="b-row">
         <b class="mr-2 sm:mr-8 lg:mr-7">Especie:</b>
-        <span>{{ pet.especie }}</span>
+        <span>{{ `${pet.especie === 'Dog' ? "Perro" : "Gato"}` }}</span>
       </div>
       <div class="b-row mr-4">
         <b class="mr-2 sm:mr-8 lg:mr-7">Género:</b>
