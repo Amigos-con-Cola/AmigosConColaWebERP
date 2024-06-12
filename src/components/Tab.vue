@@ -4,6 +4,11 @@ import { initFlowbite } from "flowbite";
 import DetailPetInfo from "@/components/pet_info/DetailPetInfo.vue";
 import AddButton from "@/components/AddButton.vue";
 import VacunaModal from "@/components/animal_details/VacunaModal.vue";
+import  {Animal} from "@stores/animalStore.ts";
+
+const props = defineProps<{
+  pet: Animal | null;
+}>();
 
 onMounted(() => {
   initFlowbite();
@@ -92,7 +97,7 @@ onMounted(() => {
         class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
         role="tabpanel"
       >
-        <DetailPetInfo historia="Historia de origen" />
+        <DetailPetInfo :historia="props.pet?.historia" />
       </div>
       <div
         id="styled-dashboard"
