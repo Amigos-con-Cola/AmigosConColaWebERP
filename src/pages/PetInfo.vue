@@ -42,6 +42,7 @@ const getPetById = async () => {
 onMounted(() => {
   getPetById();
 });
+
 </script>
 
 <template>
