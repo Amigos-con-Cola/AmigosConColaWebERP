@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useVacunas, Vaccine} from "@stores/vacunaStore.ts";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {useRoute} from "vue-router";
 
 const vacunas = useVacunas();
@@ -14,21 +14,16 @@ let examen_previo = ref("");
 let nombre = ref("");
 let fecha = ref("");
 
-const vaccine: Vaccine= {
-  name: nombre.value,
-  date:{
-    day: parseInt(fecha.value.split("-")[2]),
-    month: parseInt(fecha.value.split("-")[1]),
-    year: parseInt(fecha.value.split("-")[0]),
-    dayOfWeek: 1
-  },
-  examen_previo: examen_previo.value,
-}
+const vaccine = computed<Vaccine>(() => {
+  return {
+    name: nombre.value,
+    date: fecha.value,
+    examen_previo: examen_previo.value
+  };
+});
 
 async function addVacuna() {
-  console.log(typeof fecha.value.split("-")[2])
-  let vacuna = await vacunas.postVacuna(vaccine,idAnimal.value);
-  console.log(vacuna);
+  let vacuna = await vacunas.postVacuna(vaccine.value,idAnimal.value);
 }
 
 

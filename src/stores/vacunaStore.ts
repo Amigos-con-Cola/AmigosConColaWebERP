@@ -1,15 +1,9 @@
 import { defineStore } from "pinia";
 
-interface Date {
-    year: number;
-    month: number;
-    day: number;
-    dayOfWeek: number;
-}
 
 export interface Vaccine {
     name: string;
-    date: Date;
+    date: string;
     examen_previo?: string;
 }
 
