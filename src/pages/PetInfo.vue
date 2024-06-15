@@ -15,8 +15,8 @@ petId.value = route.params.id;
 
 const getPetById = async () => {
   const animal: Animal | null = await animals.getAnimalById(petId.value);
-  if(!animal){
-    return
+  if (!animal) {
+    return;
   }
   animalInfo.value = animal;
 };
@@ -24,7 +24,6 @@ const getPetById = async () => {
 onMounted(() => {
   getPetById();
 });
-
 </script>
 
 <template>
@@ -32,7 +31,10 @@ onMounted(() => {
     class="flex flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-row items-center sm:mt-[3rem]"
   >
     <BasePetInfo :pet="animalInfo" class="mr-5 mb-5 xl:mb-0 lg:mb-8 xl:mr-8" />
-    <Tab :pet="animalInfo" class="mr-[0.75rem] mb-10 sm:mr-10 sm:h-[37.8rem] xl:m-0 lg:mb-8" />
+    <Tab
+      :pet="animalInfo"
+      class="mr-[0.75rem] mb-10 sm:mr-10 sm:h-[37.8rem] xl:m-0 lg:mb-8"
+    />
   </div>
 </template>
 

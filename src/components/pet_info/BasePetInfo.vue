@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {Animal} from "@stores/animalStore.ts";
+import { Animal } from "@stores/animalStore.ts";
 
 const { pet } = defineProps<{
   pet: Animal | null;
@@ -35,11 +35,11 @@ const { pet } = defineProps<{
       </div>
       <div class="b-row">
         <b class="mr-2 sm:mr-8 lg:mr-7">Especie:</b>
-        <span>{{ `${pet?.especie === 'Dog' ? "Perro" : "Gato"}` }}</span>
+        <span>{{ `${pet?.especie === "Dog" ? "Perro" : "Gato"}` }}</span>
       </div>
       <div class="b-row mr-4">
         <b class="mr-2 sm:mr-[2.1rem] lg:mr-8">Género:</b>
-        <span>{{`${pet?.genero === 'Male' ? "Macho" : "Hembra"}` }}</span>
+        <span>{{ `${pet?.genero === "Male" ? "Macho" : "Hembra"}` }}</span>
       </div>
       <div class="b-row">
         <b class="mr-2 sm:mr-3.5 lg:mr-[0.9rem]">Ubicación:</b>

@@ -102,6 +102,7 @@ export const useAnimals = defineStore("animales", () => {
    */
   async function getAnimalById(id: number) {
     const response = await fetch(`${API_BASE}/api/animals/${id}`);
+
     if (!response.ok) {
       return null;
     }
