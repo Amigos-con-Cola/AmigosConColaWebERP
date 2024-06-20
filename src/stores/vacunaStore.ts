@@ -48,7 +48,26 @@ export const useVacunas = defineStore("vacunas", () => {
     }
   }
 
+  async function getVacunas(idAnimal: number): Promise<Vaccine[] | null> {
+    try {
+      const response = await fetch(
+        `${API_BASE}/api/animales/${idAnimal}/vacunaciones`,
+      );
+
+      if (!response.ok) {
+        console.error("Failed to get vaccines");
+        return null;
+      }
+
+      return await response.json();
+    } catch (error: any) {
+      console.error(error.message);
+      return null;
+    }
+  }
+
   return {
     postVacuna,
+    getVacunas,
   };
 });
