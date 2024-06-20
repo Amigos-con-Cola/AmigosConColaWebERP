@@ -131,7 +131,6 @@ onMounted(() => {
           data-modal-target="vacuna-modal"
           data-modal-toggle="vacuna-modal"
         />
-
         <VacunaModal @vaccineAdded="getAllVaccines" />
 
         <div class="max-h-96 overflow-y-auto">
