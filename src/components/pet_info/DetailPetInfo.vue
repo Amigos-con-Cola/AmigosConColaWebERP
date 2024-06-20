@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { historia } = defineProps<{
-  historia: string;
+  historia: string | undefined;
 }>();
 </script>
 
