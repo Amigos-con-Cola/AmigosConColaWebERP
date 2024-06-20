@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export interface Vaccine {
   name: string;
   date: string;
-  examen_previo?: string;
+  examenPrevio?: string | undefined;
 }
 
 export const useVacunas = defineStore("vacunas", () => {

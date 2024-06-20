@@ -97,13 +97,10 @@ onMounted(() => {
         <li class="me-2 flex items-center" role="presentation">
           <button
             id="contacts-styled-tab"
-            Historia
             aria-controls="contacts"
             aria-selected="false"
             class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
             data-tabs-target="#styled-contacts"
-            de
-            origen
             role="tab"
             type="button"
           >
@@ -134,14 +131,18 @@ onMounted(() => {
           data-modal-target="vacuna-modal"
           data-modal-toggle="vacuna-modal"
         />
-        <VacunaModal />
-        <div v-for="vaccine in vaccines" class="flex mb-4">
-          <VacunaPhoto class="mr-3" />
-          <VacunaInfo
-            :examenPrevio="vaccine.examenPrevio"
-            :fecha="vaccine.date"
-            :nombre="vaccine.name"
-          />
+
+        <VacunaModal @vaccineAdded="getAllVaccines" />
+
+        <div class="max-h-96 overflow-y-auto">
+          <div v-for="vaccine in vaccines" class="flex mb-4">
+            <VacunaPhoto class="mr-3" />
+            <VacunaInfo
+              :examenPrevio="vaccine?.examenPrevio"
+              :fecha="vaccine.date"
+              :nombre="vaccine.name"
+            />
+          </div>
         </div>
       </div>
       <div

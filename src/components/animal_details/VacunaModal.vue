@@ -15,6 +15,8 @@ let examen_previo = ref("");
 let nombre = ref("");
 let fecha = ref("");
 
+const emit = defineEmits(["vaccineAdded"]);
+
 const vaccine = computed<Vaccine>(() => {
   return {
     name: nombre.value,
@@ -39,6 +41,7 @@ async function addVacuna() {
     }, 3100);
     return;
   }
+  emit("vaccineAdded");
   showSuccessToast.value = true;
   setTimeout(() => {
     showSuccessToast.value = false;
