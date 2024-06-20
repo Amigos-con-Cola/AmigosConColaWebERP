@@ -14,8 +14,4 @@ export const Primary: Story = {
     components: { DesparasitacionModal },
     template: "<DesparasitacionModal />",
   }),
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> ab408a049197064c795c9358a2eb4a44e532a25a
