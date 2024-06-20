@@ -29,7 +29,6 @@ async function getAllVaccines() {
   if (!data) {
     return;
   }
-  console.log(data);
   vaccines.value = data;
 }
 
