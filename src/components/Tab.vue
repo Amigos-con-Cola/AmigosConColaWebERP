@@ -9,6 +9,7 @@ import { useVacunas, Vaccine } from "@stores/vacunaStore.ts";
 import { useRoute } from "vue-router";
 import VacunaPhoto from "@/components/vacunas/VacunaPhoto.vue";
 import VacunaInfo from "@/components/vacunas/VacunaInfo.vue";
+import AseoModal from "@/components/animal_details/AseoModal.vue";
 
 const vacunas = useVacunas();
 
@@ -164,14 +165,12 @@ onMounted(() => {
         class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
         role="tabpanel"
       >
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-          This is some placeholder content the
-          <strong class="font-medium text-gray-800 dark:text-white"
-            >Contacts tab's associated content</strong
-          >. Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
-        </p>
+        <AddButton
+          class="mb-4"
+          data-modal-target="aseo-modal"
+          data-modal-toggle="aseo-modal"
+        />
+        <AseoModal />
       </div>
     </div>
   </div>
