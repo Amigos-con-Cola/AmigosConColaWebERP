@@ -1,17 +1,40 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { initFlowbite } from "flowbite";
 import DetailPetInfo from "@/components/pet_info/DetailPetInfo.vue";
 import AddButton from "@/components/AddButton.vue";
 import VacunaModal from "@/components/animal_details/VacunaModal.vue";
 import { Animal } from "@stores/animalStore.ts";
+import { useVacunas, Vaccine } from "@stores/vacunaStore.ts";
+import { useRoute } from "vue-router";
+import VacunaPhoto from "@/components/vacunas/VacunaPhoto.vue";
+import VacunaInfo from "@/components/vacunas/VacunaInfo.vue";
+
+const vacunas = useVacunas();
+
+const idAnimal = ref();
+const route = useRoute();
+
+idAnimal.value = route.params.id;
 
 const props = defineProps<{
   pet: Animal | null;
 }>();
 
+let vaccines = ref<Vaccine[]>([]);
+
+async function getAllVaccines() {
+  const data = await vacunas.getVacunas(idAnimal.value);
+
+  if (!data) {
+    return;
+  }
+  vaccines.value = data;
+}
+
 onMounted(() => {
   initFlowbite();
+  getAllVaccines();
 });
 </script>
 
@@ -73,13 +96,10 @@ onMounted(() => {
         <li class="me-2 flex items-center" role="presentation">
           <button
             id="contacts-styled-tab"
-            Historia
             aria-controls="contacts"
             aria-selected="false"
             class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
             data-tabs-target="#styled-contacts"
-            de
-            origen
             role="tab"
             type="button"
           >
@@ -106,10 +126,22 @@ onMounted(() => {
         role="tabpanel"
       >
         <AddButton
+          class="mb-4"
           data-modal-target="vacuna-modal"
           data-modal-toggle="vacuna-modal"
         />
-        <VacunaModal />
+        <VacunaModal @vaccineAdded="getAllVaccines" />
+
+        <div class="max-h-96 overflow-y-auto">
+          <div v-for="vaccine in vaccines" class="flex mb-4">
+            <VacunaPhoto class="mr-3" />
+            <VacunaInfo
+              :examenPrevio="vaccine?.examenPrevio"
+              :fecha="vaccine.date"
+              :nombre="vaccine.name"
+            />
+          </div>
+        </div>
       </div>
       <div
         id="styled-settings"
