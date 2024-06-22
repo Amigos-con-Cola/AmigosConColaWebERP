@@ -2,7 +2,7 @@
 
 <template>
   <button
-    class="flex items-center py-2.5 px-5 text-sm font-medium border border-0 hover:text-primary"
+    class="flex items-center py-2.5 px-5 text-sm font-medium border-0 hover:text-primary"
     type="button"
   >
     <svg
@@ -23,7 +23,7 @@
       />
     </svg>
     <span
-      class="text-primary mt-1.5 text-[0.8rem] md:text-[0.8rem] lg:text-[0.95rem] sm:text-[0.8rem]"
+      class="text-primary lg:mt-[0.2rem] text-[0.7rem] md:text-[0.8rem] lg:text-[0.95rem] sm:text-[0.8rem]"
     >
       Agregar animales
     </span>

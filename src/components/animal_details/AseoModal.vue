@@ -24,14 +24,15 @@ const tipo_aseo = ref("");
 
           <div class="flex items-center mb-5">
             <label
-              class="mr-[0.5rem] sm:mr-[1rem] md:mr-5 lg:mr-[3.1rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
+              class="mr-[0.5rem] sm:mr-[0.65rem] sm:w-[5.1rem] md:w-[6.3rem] lg:w-[8rem] md:mr-[1.3rem] lg:mr-[2.6rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
               for="tipo"
               >Tipo de aseo:
             </label>
+
             <input
               id="tipo"
               v-model="tipo_aseo"
-              class="border-primary text-gray-900 focus:border-primary-600 lg:w-[25rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] h-[2.9rem]"
+              class="border-primary text-gray-900 focus:border-primary-600 w-[9.9rem] sm:w-[10.8rem] lg:w-[25rem] md:w-[13.8rem] text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem] h-[2.9rem]"
               name="tipo"
               placeholder="Corte de pelo"
               type="text"
@@ -40,23 +41,24 @@ const tipo_aseo = ref("");
 
           <div class="flex items-center mb-5">
             <label
-              class="mr-[3.1rem] md:mr-[4.6rem] sm:mr-[3.7rem] lg:mr-[7.1rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
+              class="mr-[3.1rem] md:mr-[4.7rem] sm:mr-[3.3rem] lg:mr-[7.1rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
               for="lugar"
               >Lugar:
             </label>
+
             <input
               id="lugar"
               v-model="lugar"
-              class="border-primary text-gray-900 focus:border-primary-600 lg:w-[25rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] h-[2.9rem]"
+              class="border-primary text-gray-900 focus:border-primary-600 w-[10rem] lg:w-[25rem] md:w-[13.8rem] sm:w-[10.9rem] text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem] h-[2.9rem]"
               name="lugar"
-              placeholder="Peluqueria ..."
+              placeholder="Peluqueria..."
               type="text"
             />
           </div>
 
           <div class="flex items-center mb-6">
             <label
-              class="mr-[3.1rem] sm:mr-[3.6rem] lg:mr-[7rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] md:mr-[1.5rem] lg:text-[1.2rem]"
+              class="mr-[3.1rem] sm:mr-[3.2rem] lg:mr-[7rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] md:mr-[4.6rem] lg:text-[1.2rem]"
               for="date"
               >Fecha:
             </label>
@@ -64,16 +66,18 @@ const tipo_aseo = ref("");
             <input
               id="date"
               v-model="fecha"
-              class="border-primary text-gray-900 focus:border-primary-600 w-[25rem] text-[0.8rem] sm:text-[1rem] md:text-[1rem] lg:text-[1.1rem] h-[2.9rem]"
+              class="border-primary text-gray-900 focus:border-primary-600 w-[35rem] lg:w-[25rem] md:w-[14rem] text-[0.8rem] sm:text-[0.9rem] md:text-[0.9rem] lg:text-[1.1rem] h-[2.9rem]"
               name="date"
               type="date"
             />
           </div>
           <div
-            class="flex border border-primary w-[16rem] sm:w-[16.6rem] md:w-[20.1rem] lg:w-[35.7rem] h-[6rem] mb-8 items-start text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem]"
+            class="flex border border-primary w-[16rem] sm:w-[16.6rem] md:w-[21.5rem] lg:w-[35.7rem] h-[6rem] mb-8 items-start text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem]"
           >
             <div class="flex-1 ml-1">
-              <h3 class="flex font-bold m-3 sm:m-3 md:m-3 lg:m-3 text-[1rem]">
+              <h3
+                class="flex font-bold m-3 lg:text-base sm:m-3 md:m-3 lg:m-3 text-[0.8rem] md:text-[0.9rem] sm:text-[0.9rem]"
+              >
                 Animales
               </h3>
             </div>
@@ -83,14 +87,14 @@ const tipo_aseo = ref("");
           </div>
 
           <button
-            class="bg-surface drop-shadow font-normal border border-gray-200 hover:bg-gray-100 hover:text-primary hover:font-bold px-4 shadow-3xl rounded-full text-xs md:text-base sm:text-base sm:px-5 lg:text-md py-3 md:px-6 md:py-3 lg:px-8 lg:py-2.5 mr-4 sm:mr-10 md:mr-10 lg:mr-10"
+            class="bg-surface drop-shadow font-normal border border-gray-200 hover:bg-gray-100 hover:text-primary hover:font-bold px-4 shadow-3xl rounded-full text-xs md:text-sm sm:text-sm sm:px-5 lg:text-md py-3 md:px-6 md:py-2.5 lg:px-8 lg:py-2.5 mr-4 sm:mr-10 md:mr-10 lg:mr-10 lg:text-base"
             data-modal-hide="aseo-modal"
             type="button"
           >
             Cancelar
           </button>
           <button
-            class="bg-primary drop-shadow text-white hover:bg-primary/75 hover:font-bold font-medium px-4 shadow-3xl rounded-full text-xs md:text-base sm:text-base sm:px-5 lg:text-md py-3 md:px-6 md:py-3 lg:px-8 lg:py-2.5"
+            class="bg-primary drop-shadow text-white hover:bg-primary/75 hover:font-bold font-medium px-5 shadow-3xl rounded-full text-xs md:text-sm sm:text-sm sm:px-5 lg:text-md py-3 md:px-6 md:py-2.5 lg:px-8 lg:py-2.5 lg:text-base"
             data-modal-hide="aseo-modal"
             type="button"
           >

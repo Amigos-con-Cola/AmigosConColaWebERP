@@ -66,7 +66,7 @@ const { pet } = defineProps<{
           <p>Vacuna1 - 11/12/2024</p>
         </div>
         <div class="b-row flex flex-col items-center mt-6">
-          <b class="text-primary">Próxima desparacitación</b>
+          <b class="text-primary">Próxima desparasitación</b>
           <p>Vacuna2 - 11/12/2024</p>
         </div>
       </div>
