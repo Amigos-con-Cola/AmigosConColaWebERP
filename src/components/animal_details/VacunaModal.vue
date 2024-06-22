@@ -113,6 +113,7 @@ async function addVacuna() {
               for="previous-exam"
               >Examen previo:
             </label>
+
             <input
               id="previous-exam"
               v-model="examen_previo"
@@ -129,6 +130,7 @@ async function addVacuna() {
               for="name"
               >Nombre:
             </label>
+
             <input
               id="name"
               v-model="nombre"
@@ -145,6 +147,7 @@ async function addVacuna() {
               for="date"
               >Fecha:
             </label>
+
             <input
               id="date"
               v-model="fecha"

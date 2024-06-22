@@ -54,7 +54,7 @@ const tipo_aseo = ref("");
             />
           </div>
 
-          <div class="flex items-center mb-5">
+          <div class="flex items-center mb-6">
             <label
               class="mr-[3.1rem] sm:mr-[3.6rem] lg:mr-[7rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] md:mr-[1.5rem] lg:text-[1.2rem]"
               for="date"
