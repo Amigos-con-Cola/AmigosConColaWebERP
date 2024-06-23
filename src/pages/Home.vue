@@ -7,7 +7,6 @@ import AnimalCard from "@/components/home_page/AnimalCard.vue";
 import catIcon from "@/assets/home_page/cat.svg";
 import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
-import filterIcon from "@/assets/home_page/filter.svg";
 import { onMounted, ref, watch } from "vue";
 import { Animal, GetResponse, useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
@@ -27,10 +26,6 @@ const currentPage = ref(1);
 const currentSpecie = ref("");
 
 watch(search, () => {
-  isCatSelect.value = false;
-  isDogSelect.value = false;
-  currentSpecie.value = "";
-
   animalesFiltered.value = backAnimals.filter((animal) =>
     animal.nombre.toLowerCase().includes(search.value.toLowerCase()),
   );
@@ -155,8 +150,9 @@ const handlePreviousPage = async () => {
         class="mt-1 md:mt-2 size-4 md:size-6"
       />
     </div>
-    <div class="flex flex-wrap gap-3 mt-4 mb-7">
-      <FilterButton :icon="filterIcon" text="Filtrar" />
+    <div class="flex items-center flex-wrap gap-3 mt-4 mb-7">
+      <!-- <FilterButton :icon="filterIcon" text="Filtrar" /> -->
+      <span class="font-semibold">Filtrar por especie:</span>
       <FilterButton
         :icon="dogIcon"
         :isSelect="isDogSelect"

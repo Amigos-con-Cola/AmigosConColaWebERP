@@ -45,7 +45,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="nombre"
-          >Nombre</label
+          >Nombre<strong>*</strong></label
         >
 
         <div class="flex flex-col w-full">
@@ -71,7 +71,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="edad"
-          >Edad</label
+          >Edad<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <input
@@ -93,7 +93,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 md:mb-0 md:w-24"
           for="especie"
-          >Especie</label
+          >Especie<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <div
@@ -133,7 +133,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="genero"
-          >Género</label
+          >Género<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <div
@@ -175,7 +175,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="ubicacion"
-          >Ubicación</label
+          >Ubicación<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <input
@@ -198,7 +198,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="codigo"
-          >Código</label
+          >Código<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <input
@@ -221,7 +221,7 @@ const handleHembraClick = () => {
         <label
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="peso"
-          >Peso</label
+          >Peso<strong>*</strong></label
         >
         <div class="flex flex-col w-full">
           <input
@@ -245,7 +245,7 @@ const handleHembraClick = () => {
       <label
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         for="historiaOrigen"
-        >Historia de origen</label
+        >Historia de origen<strong>*</strong></label
       >
       <div class="flex flex-col w-full">
         <textarea
@@ -265,5 +265,9 @@ const handleHembraClick = () => {
 <style scoped>
 textarea {
   resize: none;
+}
+
+strong {
+  color: red;
 }
 </style>

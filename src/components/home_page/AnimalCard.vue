@@ -19,12 +19,12 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
     href="#"
   >
     <img
-      class="h-52 md:size-64 w-full rounded-t-lg"
       :src="
         animal.imagen ??
         (animal.especie === AnimalSpecies.DOG ? dogUrl : catUrl)
       "
       alt="animal image"
+      class="h-52 md:size-64 w-full rounded-t-lg"
     />
     <div class="pl-4 py-3 pr-3 text-[0.8rem]">
       <div class="flex gap-2 w-min items-center mb-2">
@@ -37,7 +37,7 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
       </div>
       <div>
         <p class="text-gray-700 dark:text-gray-400">
-          {{ `Aproximadamente ${animal.edad} años` }}
+          {{ `Aproximadamente ${animal.edad} meses` }}
         </p>
         <span
           :class="{
