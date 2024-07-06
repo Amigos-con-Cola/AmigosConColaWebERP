@@ -17,21 +17,28 @@ const animalRegistrationSchemas = [
       .max(10, "Debe tener máximo 10 caracteres")
       .required("El nombre es obligatorio"),
     especie: yup.string().required("La especie es obligatoria"),
+    fecha: yup
+      .date()
+      .max(new Date(), "La fecha no puede ser mayor a la actual")
+      .optional()
+      .nullable()
+      .transform((curr, orig) => (orig === "" ? null : curr)),
     edad: yup
       .number()
       .required("La edad es obligatoria")
       .positive("La edad debe ser un número positivo")
       .integer("La edad debe ser un número entero")
       .truncate(),
+    tipo_edad: yup.string().required("Obligatorio"),
     genero: yup.string().required("El género es obligatorio"),
     ubicacion: yup.string().required("La ubicación es obligatoria"),
-    codigo: yup.string().required("El código es obligatorio"),
+    codigo: yup.string(),
     peso: yup
       .number()
       .required("El peso es obligatorio")
-      .positive("El peso debe ser positivo")
+      .positive("El peso debe un número ser positivo")
       .truncate(),
-    historia: yup.string().required("La historia de origen es obligatoria"),
+    historia: yup.string(),
   }),
   yup.object().shape({
     imagen: yup.object().json().shape({
