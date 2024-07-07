@@ -3,7 +3,6 @@ import ButtonAddAnimals from "./ButtonAddAnimals.vue";
 import { ref } from "vue";
 
 const fecha = ref("");
-const lugar = ref("");
 const tipo_aseo = ref("");
 </script>
 
@@ -35,23 +34,6 @@ const tipo_aseo = ref("");
               class="border-primary text-gray-900 focus:border-primary-600 w-[9.9rem] sm:w-[10.8rem] lg:w-[25rem] md:w-[13.8rem] text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem] h-[2.9rem]"
               name="tipo"
               placeholder="Corte de pelo"
-              type="text"
-            />
-          </div>
-
-          <div class="flex items-center mb-5">
-            <label
-              class="mr-[3.1rem] md:mr-[4.7rem] sm:mr-[3.3rem] lg:mr-[7.1rem] font-medium text-gray-900 text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
-              for="lugar"
-              >Lugar:
-            </label>
-
-            <input
-              id="lugar"
-              v-model="lugar"
-              class="border-primary text-gray-900 focus:border-primary-600 w-[10rem] lg:w-[25rem] md:w-[13.8rem] sm:w-[10.9rem] text-[0.8rem] sm:text-[0.8rem] md:text-[0.9rem] lg:text-[1.2rem] h-[2.9rem]"
-              name="lugar"
-              placeholder="Peluqueria..."
               type="text"
             />
           </div>

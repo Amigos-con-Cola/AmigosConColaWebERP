@@ -74,7 +74,8 @@
               class="border-primary text-gray-900 focus:border-primary-600 w-[10.7rem] lg:w-[25rem] sm:w-[10.7rem] md:w-[14rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
               name="peso"
               placeholder="1 kg"
-              type="text"
+              type="number"
+              step="0.01"
             />
           </div>
 
