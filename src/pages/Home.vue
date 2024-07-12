@@ -136,7 +136,9 @@ const handlePreviousPage = async () => {
 
 <template>
   <div class="flex flex-col justify-center">
-    <div class="flex justify-start lg:justify-end items-center gap-3 mx-4 mt-5">
+    <div
+      class="flex justify-start lg:justify-end items-center gap-3 lg:mx-4 mt-5"
+    >
       <SearchInput v-model="search" />
       <AddButton @click="onRegisterAnimalClicked">
         <span class="hidden md:flex">Registrar Animal</span>
