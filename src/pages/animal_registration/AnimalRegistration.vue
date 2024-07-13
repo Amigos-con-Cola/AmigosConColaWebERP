@@ -83,7 +83,7 @@ const nextStep = async (values: any) => {
     setTimeout(() => {
       showSuccessToast.value = false;
       router.push("/home");
-    }, 3000);
+    }, 2000);
 
     return;
   }

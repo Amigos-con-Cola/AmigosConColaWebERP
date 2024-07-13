@@ -28,13 +28,15 @@ export const useAnimals = defineStore("animales", () => {
    * Get a paginated list of all animals.
    * @param page The page number
    * @param perPage How many items per page
-   * @param filter The filter to apply
+   * @param specie The filter to apply
+   * @param name Filter by name
    * @return A list of animals.
    */
   async function getPaginated(
     page: number = 1,
     perPage: number = 12,
-    filter?: string,
+    specie?: string,
+    name?: string,
   ): Promise<GetResponse | null> {
     if (page < 0) return null;
     if (perPage < 0) return null;
@@ -42,8 +44,11 @@ export const useAnimals = defineStore("animales", () => {
     const url = new URL(`${API_BASE}/api/animals`);
     url.searchParams.append("page", page.toString());
     url.searchParams.append("perPage", perPage.toString());
-    if (filter) {
-      url.searchParams.append("species", filter);
+    if (specie) {
+      url.searchParams.append("species", specie);
+    }
+    if (name) {
+      url.searchParams.append("name", name);
     }
 
     try {
@@ -64,6 +69,7 @@ export const useAnimals = defineStore("animales", () => {
   /**
    * Create a new animal.
    * @param animal The animal to create.
+   * @param image Image file to upload
    * @return The created animal.
    */
   // En src/stores/animalStore.ts

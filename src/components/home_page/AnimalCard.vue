@@ -15,7 +15,7 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
 
 <template>
   <a
-    class="size-40 md:w-[15rem] h-max max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    class="size-40 md:w-[15rem] h-max max-w-sm bg-white border border-gray-200 rounded-lg shadow"
     href="#"
   >
     <img

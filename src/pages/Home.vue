@@ -18,17 +18,26 @@ const squareNumber = ref(3);
 const api = useAnimals();
 
 const animalesFiltered = ref<Animal[]>([]);
-let backAnimals: Animal[] = [];
 const search = ref("");
+const debounceTimer = ref<number | undefined>(undefined);
 const isDogSelect = ref(false);
 const isCatSelect = ref(false);
 const currentPage = ref(1);
 const currentSpecie = ref("");
 
 watch(search, () => {
-  animalesFiltered.value = backAnimals.filter((animal) =>
-    animal.nombre.toLowerCase().includes(search.value.toLowerCase()),
-  );
+  clearTimeout(debounceTimer.value);
+  debounceTimer.value = window.setTimeout(async () => {
+    const response: GetResponse | null = await api.getPaginated(
+      currentPage.value,
+      animalsToShow,
+      currentSpecie.value,
+      search.value,
+    );
+    if (response) {
+      animalesFiltered.value = response.data;
+    }
+  }, 300);
 });
 
 onMounted(async () => {
@@ -40,7 +49,6 @@ onMounted(async () => {
   if (!response) return;
   animalesFiltered.value = response?.data;
   squareNumber.value = response.totalPages;
-  backAnimals = animalesFiltered.value;
 });
 
 const selectDogs = async () => {
@@ -52,7 +60,6 @@ const selectDogs = async () => {
     if (!response) return;
     animalesFiltered.value = response.data;
     squareNumber.value = response.totalPages;
-    backAnimals = animalesFiltered.value;
     return;
   }
   currentPage.value = 1;
@@ -72,7 +79,6 @@ const selectCats = async () => {
     if (!response) return;
     animalesFiltered.value = response.data;
     squareNumber.value = response.totalPages;
-    backAnimals = animalesFiltered.value;
     return;
   }
   currentPage.value = 1;
@@ -98,7 +104,6 @@ const handleChangePage = async (page: number) => {
   if (!response) return;
   animalesFiltered.value = response.data;
   squareNumber.value = response.totalPages;
-  backAnimals = animalesFiltered.value;
   currentPage.value = page;
 };
 
@@ -114,7 +119,6 @@ const handleNextPage = async () => {
   );
   if (!response) return;
   animalesFiltered.value = response.data;
-  backAnimals = animalesFiltered.value;
 };
 
 const handlePreviousPage = async () => {
@@ -130,7 +134,6 @@ const handlePreviousPage = async () => {
   if (!response) return;
   animalesFiltered.value = response.data;
   squareNumber.value = response.totalPages;
-  backAnimals = animalesFiltered.value;
 };
 </script>
 
