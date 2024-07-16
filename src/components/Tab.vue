@@ -13,6 +13,10 @@ import AseoModal from "@/components/animal_details/AseoModal.vue";
 import DesparasitacionModal from "@/components/animal_details/DesparasitacionModal.vue";
 import { useAseos } from "@/stores/aseoStore";
 import AseoInfo from "@/components/aseos/AseoInfo.vue";
+import { useDesparasitaciones } from "@stores/desparasitacionStore.ts";
+import DesparasitacionesPhoto from "@/components/desparasitaciones/DesparasitacionesPhoto.vue";
+import DesparasitacionesInfo from "@/components/desparasitaciones/DesparasitacionesPhoto.vue";
+import { computed } from "vue";
 
 const idAnimal = ref();
 const route = useRoute();
@@ -22,6 +26,10 @@ idAnimal.value = route.params.id;
 const idAnimalInt = parseInt(route.params.id as string);
 const vacunas = useVacunas(idAnimalInt);
 const aseos = useAseos(idAnimalInt);
+const desparasitaciones = useDesparasitaciones(idAnimalInt);
+const internalDewormings = computed(() => desparasitaciones.items?.filter(d => d.tipo === 'interna') || []);
+const externalDewormings = computed(() => desparasitaciones.items?.filter(d => d.tipo === 'externa') || []);
+
 
 const props = defineProps<{
   pet: Animal | null;
@@ -148,7 +156,36 @@ onMounted(() => {
           data-modal-target="desparasitacion-modal"
           data-modal-toggle="desparasitacion-modal"
         />
-        <DesparasitacionModal />
+        <DesparasitacionModal/>
+        <div class="flex max-h-96 overflow-y-auto">
+          <div class="w-1/2 pr-2">
+            <h2 class="font-bold text-center mb-4">Interno</h2>
+            <div v-for="deworming in internalDewormings" class="flex mb-4">
+              <DesparasitacionesPhoto class="mr-3" />
+              <DesparasitacionesInfo
+                :tipo="deworming.tipo"
+                :fecha="deworming.date"
+                :producto="deworming.product"
+                :peso="deworming.weight"
+                :formato="deworming.format"
+              />
+            </div>
+          </div>
+
+          <div class="w-1/2 pl-2">
+            <h2 class="font-bold text-center mb-4">Externo</h2>
+            <div v-for="deworming in externalDewormings" class="flex mb-4">
+              <DesparasitacionesPhoto class="mr-3" />
+              <DesparasitacionesInfo
+                :tipo="deworming.tipo"
+                :fecha="deworming.date"
+                :producto="deworming.product"
+                :peso="deworming.weight"
+                :formato="deworming.format"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div
         id="styled-contacts"
