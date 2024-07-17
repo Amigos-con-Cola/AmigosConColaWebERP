@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/vue-query";
-import { defineStore } from "pinia";
+import { reactive } from "vue";
 
 export interface Vaccine {
   name: string;
@@ -59,27 +59,27 @@ async function getVacunas({
   }
 }
 
-export const useVacunas = (idAnimal: number) =>
-  defineStore("vacunas", () => {
-    const queryClient = useQueryClient();
+export const useVacunas = (idAnimal: number) => {
+  const queryClient = useQueryClient();
 
-    const { data } = useQuery({
-      queryKey: ["vacunas", idAnimal],
-      queryFn: getVacunas,
-    });
+  const { data } = useQuery({
+    queryKey: ["vacunas", idAnimal],
+    queryFn: getVacunas,
+    initialData: [],
+  });
 
-    const { mutateAsync, error, isError, isSuccess } = useMutation({
-      mutationFn: postVacuna,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["vacunas", idAnimal] });
-      },
-    });
+  const { mutateAsync, error, isError, isSuccess } = useMutation({
+    mutationFn: postVacuna,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["vacunas", idAnimal] });
+    },
+  });
 
-    return {
-      items: data,
-      create: mutateAsync,
-      creationError: error,
-      isCreationError: isError,
-      isCreationSuccess: isSuccess,
-    };
-  })();
+  return reactive({
+    items: data,
+    create: mutateAsync,
+    creationError: error,
+    isCreationError: isError,
+    isCreationSuccess: isSuccess,
+  });
+};

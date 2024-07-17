@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import _ from "lodash";
 import {
   QueryFunctionContext,
@@ -7,6 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/vue-query";
 import { apiClient } from "@/axios";
+import { reactive } from "vue";
 
 export interface Aseo {
   id: number;
@@ -37,34 +37,32 @@ const postAseos = (newAseo: NewAseo): Promise<Aseo | null> => {
 };
 
 export const useAseos = (idAnimal: number) => {
-  return defineStore("aseos", () => {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    const { isError, data, error } = useQuery({
-      queryKey: ["aseos", idAnimal],
-      queryFn: fetchAseos,
-    });
+  const { isError, data, error } = useQuery({
+    queryKey: ["aseos", idAnimal],
+    queryFn: fetchAseos,
+  });
 
-    const {
-      isError: isMutationError,
-      error: mutationError,
-      mutate,
-      isSuccess,
-    } = useMutation({
-      mutationFn: postAseos,
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["aseos", idAnimal] });
-      },
-    });
+  const {
+    isError: isMutationError,
+    error: mutationError,
+    mutate,
+    isSuccess,
+  } = useMutation({
+    mutationFn: postAseos,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["aseos", idAnimal] });
+    },
+  });
 
-    return {
-      isError,
-      error,
-      items: data,
-      create: mutate,
-      isSuccess,
-      isMutationError,
-      mutationError,
-    };
-  })();
+  return reactive({
+    isError,
+    error,
+    items: data,
+    create: mutate,
+    isSuccess,
+    isMutationError,
+    mutationError,
+  });
 };
