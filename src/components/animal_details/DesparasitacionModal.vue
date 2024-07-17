@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import { useDesparasitaciones, Deworming } from "@stores/desparasitacionStore.ts";
+import {
+  Deworming,
+  useDesparasitaciones,
+} from "@stores/desparasitacionStore.ts";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -11,7 +14,6 @@ idAnimal.value = route.params.id;
 
 const desparasitaciones = useDesparasitaciones(parseInt(idAnimal.value));
 
-
 let tipo = ref("");
 let fecha = ref("");
 let producto = ref("");
@@ -20,11 +22,11 @@ let formato = ref("");
 
 const deworming = computed<Deworming>(() => {
   return {
-    type: tipo.value,
-    date: fecha.value,
-    product: producto.value,
-    weight: peso.value,
-    format: formato.value,
+    tipo: tipo.value,
+    fecha: fecha.value,
+    producto: producto.value,
+    peso: peso.value,
+    formato: formato.value,
   };
 });
 
@@ -118,8 +120,8 @@ async function addDeworming() {
 
             <select
               id="tipo"
-              class="border-primary text-gray-900 focus:border-primary-600 w-[10.8rem] sm:w-[10.5rem] md:w-[26rem] lg:w-[25rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] lg:p-[0.7rem]"
               v-model="tipo"
+              class="border-primary text-gray-900 focus:border-primary-600 w-[10.8rem] sm:w-[10.5rem] md:w-[26rem] lg:w-[25rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem] lg:p-[0.7rem]"
             >
               <option value="interno">Interno</option>
               <option value="externo">Externo</option>
@@ -172,8 +174,8 @@ async function addDeworming() {
               class="border-primary text-gray-900 focus:border-primary-600 w-[10.7rem] lg:w-[25rem] sm:w-[10.7rem] md:w-[14rem] text-[0.8rem] sm:text-[0.8rem] md:text-[1rem] lg:text-[1.2rem]"
               name="weight"
               placeholder="1 kg"
-              type="number"
               step="0.01"
+              type="number"
             />
           </div>
 

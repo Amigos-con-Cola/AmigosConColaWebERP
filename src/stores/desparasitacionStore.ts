@@ -9,10 +9,10 @@ import { defineStore } from "pinia";
 
 export interface Deworming {
   tipo: string;
-  date: string;
-  product: string;
-  weight: number;
-  format: string;
+  fecha: string;
+  producto: string;
+  peso: number;
+  formato: string;
 }
 
 export interface PostDesparasitacionesParams {
@@ -22,12 +22,13 @@ export interface PostDesparasitacionesParams {
 
 /**
  * Create a new Deworming.
- * @param idAnimal The id of the animal to create the deworming for.
- * @param deworming The deworming to create.
+ * @param params The parameters (PostDesparasitacionesParams) to create the deworming.
  * @return The created deworming.
  */
 
-async function PostDesparasitaciones(params: PostDesparasitacionesParams): Promise<Deworming | null> {
+async function postDesparasitaciones(
+  params: PostDesparasitacionesParams,
+): Promise<Deworming | null> {
   const deworming = params.deworming;
   const idAnimal = params.idAnimal;
 
@@ -48,7 +49,7 @@ async function PostDesparasitaciones(params: PostDesparasitacionesParams): Promi
   }
 }
 
-async function getDesparasitaciones({
+export async function getDesparasitaciones({
   queryKey,
 }: QueryFunctionContext): Promise<Deworming[] | null> {
   try {
@@ -72,9 +73,11 @@ export const useDesparasitaciones = (idAnimal: number) =>
     });
 
     const { mutateAsync, error, isError, isSuccess } = useMutation({
-      mutationFn: PostDesparasitaciones,
+      mutationFn: postDesparasitaciones,
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["desparasitaciones", idAnimal] });
+        queryClient.invalidateQueries({
+          queryKey: ["desparasitaciones", idAnimal],
+        });
       },
     });
 
