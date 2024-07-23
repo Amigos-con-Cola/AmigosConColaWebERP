@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Field, useField } from "vee-validate";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
 import { AnimalGender } from "@/enums/animal_gender.ts";
+import FormInput from "@/components/FormInput.vue";
 
 const props = defineProps(["formValues"]);
 
@@ -75,16 +76,15 @@ const changeEdad = (e: Event) => {
         name="nombre"
       >
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
+          class="block mb-2 font-medium text-gray-900 dark:text-white md:mb-0 md:w-24"
           for="nombre"
           >Nombre<strong>*</strong></label
         >
 
         <div class="flex flex-col w-full">
-          <input
+          <FormInput
             id="nombre"
             autocomplete="off"
-            class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5"
             placeholder="Bruno"
             type="text"
             v-bind="field"
@@ -400,6 +400,19 @@ textarea {
 input:disabled {
   background-color: #f3f4f6;
   cursor: not-allowed;
+}
+
+input,
+textarea,
+select {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4b5563;
 }
 
 select:disabled {
