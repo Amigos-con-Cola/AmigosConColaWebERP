@@ -4,8 +4,15 @@ import { Field, useField } from "vee-validate";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
 import { AnimalGender } from "@/enums/animal_gender.ts";
 import FormInput from "@/components/FormInput.vue";
+import FormSelect from "../FormSelect.vue";
 
 const props = defineProps(["formValues"]);
+
+const selectOptions = [
+  { value: "Dias", label: "Días" },
+  { value: "Meses", label: "Meses" },
+  { value: "Años", label: "Años" },
+];
 
 const perroIsSelect = ref<boolean>(false);
 const gatoIsSelect = ref<boolean>(false);
@@ -53,7 +60,7 @@ const changeEdad = (e: Event) => {
     let diffDays = diff / (1000 * 60 * 60 * 24);
     if (diffDays < 30) {
       diffDays = Math.floor(diffDays);
-      tipoEdad.handleChange("Días");
+      tipoEdad.handleChange("Dias");
     } else if (diffDays < 365) {
       diffDays = Math.floor(diffDays / 30);
       tipoEdad.handleChange("Meses");
@@ -161,24 +168,13 @@ const changeEdad = (e: Event) => {
           name="tipo_edad"
         >
           <div class="flex flex-col w-full">
-            <select
+            <FormSelect
               :disabled="edadDisabled"
-              class="block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               v-bind="field"
-            >
-              <option :selected="!value" disabled value="">
-                Tiempo en ...
-              </option>
-              <option :selected="value?.includes('Días')" value="Días">
-                Días
-              </option>
-              <option :selected="value?.includes('Meses')" value="Meses">
-                Meses
-              </option>
-              <option :selected="value?.includes('Años')" value="Años">
-                Años
-              </option>
-            </select>
+              :options="selectOptions"
+              :tipo_edad="value"
+              placeholder="Tiempo en ..."
+            />
             <span class="mt-2 text-sm text-red-600 dark:text-red-500">
               {{ errorMessage }}
             </span>

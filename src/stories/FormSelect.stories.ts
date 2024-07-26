@@ -6,10 +6,8 @@ const meta: Meta<typeof SelectForm> = {
   component: SelectForm,
   argTypes: {
     options: { control: "object" },
-    modelValue: { control: "text" },
     placeholder: { control: "text" },
     disabled: { control: "boolean" },
-    customClass: { control: "text" },
   },
 };
 
@@ -23,17 +21,15 @@ export const Default: Story = {
     setup() {
       return { args };
     },
-    template: `
-          <SelectForm v-bind="args" :options="[
-      { value: 'Dias', label: 'Días' },
-          { value: 'Meses', label: 'Meses' },
-          { value: 'Años', label: 'Años' },
-          ]"/>`,
+    template: `<SelectForm v-bind="args" />`,
   }),
   args: {
-    modelValue: "",
+    options: [
+      { value: "Dias", label: "Días" },
+      { value: "Meses", label: "Meses" },
+      { value: "Años", label: "Años" },
+    ],
     placeholder: "Tiempo en ...",
     disabled: false,
-    customClass: "",
   },
 };

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/vue3";
 import FormInput from "@/components/FormInput.vue";
 
 const meta: Meta<typeof FormInput> = {
-  title: "Components/FormInput",
+  title: "Components/InputField",
   component: FormInput,
 };
 
