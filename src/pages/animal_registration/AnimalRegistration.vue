@@ -7,7 +7,7 @@ import { computed, ref } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 import { useAnimals } from "@stores/animalStore.ts";
-import router from "@/routes";
+import { useRouter } from "vue-router";
 
 const animalRegistrationSchemas = [
   yup.object().shape({
@@ -59,6 +59,8 @@ const showSuccessToast = ref(false);
 const showFailToast = ref(false);
 const isSuccess = ref(false);
 
+const router = useRouter();
+
 const previousStep = () => {
   if (step.value > 0) {
     step.value--;
@@ -76,9 +78,9 @@ const nextStep = async (values: any) => {
       showSuccessToast.value = true;
       isSuccess.value = true;
 
-      setTimeout(() => {
+      setTimeout(async () => {
         showSuccessToast.value = false;
-        router.push("/home");
+        await router.push("/home");
       }, 1000);
     } catch {
       showFailToast.value = true;

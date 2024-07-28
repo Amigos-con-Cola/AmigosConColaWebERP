@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/vue-query";
-import { Ref, reactive } from "vue";
+import { reactive, Ref } from "vue";
 
 export interface Animal {
   id: number;
@@ -44,7 +44,6 @@ async function getPaginated(
   if (page < 0) return null;
 
   let url = `/api/animals/?page=${page}&perPage=12`;
-  ``;
 
   if (specie) url += `&species=${specie}`;
   if (name) url += `&name=${name}`;
@@ -103,7 +102,7 @@ async function createAnimal({
  * @param id The number that identifies the animal
  * @return An animal.
  */
-async function getAnimalById(id: number) {
+async function getAnimalById(id: number): Promise<Animal | null> {
   try {
     const response = await apiClient.get(`/api/animals/${id}`);
     return await response.data;
@@ -112,14 +111,40 @@ async function getAnimalById(id: number) {
   }
 }
 
+async function deleteAnimal(id: number): Promise<void> {
+  // TODO: Change method to DELETE
+  console.log(id);
+  await apiClient.post(`/api/animals/${id}`);
+}
+
 export const useAnimal = (idAnimal: number) => {
+  const queryClient = useQueryClient();
+
   const { data, isFetching } = useQuery({
     queryKey: ["animals", idAnimal],
     queryFn: async () => await getAnimalById(idAnimal),
+    initialData: null,
+  });
+
+  const {
+    mutateAsync: remove,
+    isError,
+    isSuccess,
+  } = useMutation({
+    mutationKey: ["animals", idAnimal],
+    mutationFn: async () => await deleteAnimal(idAnimal),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["animals", idAnimal],
+      });
+    },
   });
 
   return reactive({
     data,
+    remove,
+    isSuccess,
+    isError,
     loading: isFetching,
   });
 };
