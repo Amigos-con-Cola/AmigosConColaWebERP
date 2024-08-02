@@ -2,21 +2,30 @@
 import SideBar from "@/components/SideBar.vue";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+import NavBar from "@/components/NavBar.vue";
+import SearchInput from "@/components/home_page/SearchInput.vue";
 
 const route = useRoute();
-const shouldShowSidebar = computed(
+const shouldShowSideBar = computed(
   () => route.path !== "/" && route.path !== "/login",
 );
 const routerViewClasses = computed(() => ({
-  "sm:ml-72": shouldShowSidebar.value,
+  "sm:ml-[5rem]": shouldShowSideBar.value,
 }));
+
+const shouldShowNavbar = computed(() => {
+  return route.path !== "/" && route.path !== "/login";
+});
 </script>
 
 <template>
   <div>
-    <SideBar v-if="shouldShowSidebar" />
+    <SideBar v-if="shouldShowSideBar" />
     <div :class="routerViewClasses">
-      <RouterView class="pl-5 pt-5" />
+      <NavBar v-if="shouldShowNavbar">
+        <SearchInput />
+      </NavBar>
+      <RouterView />
     </div>
   </div>
 </template>

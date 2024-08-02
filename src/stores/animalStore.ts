@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/vue-query";
-import { reactive, Ref } from "vue";
+import { reactive, Ref, watch } from "vue";
 
 export interface Animal {
   id: number;
@@ -181,6 +181,12 @@ export const useAnimals = (
       });
     },
   });
+
+  if (params !== null) {
+    watch(params.page, refetch);
+    watch(params.specie, refetch);
+    watch(params.name, refetch);
+  }
 
   return reactive({
     data,

@@ -1,25 +1,22 @@
 <script lang="ts" setup>
-import AddButton from "@/components/home_page/AddButton.vue";
-import SearchInput from "@/components/home_page/SearchInput.vue";
 import Pagination from "@/components/home_page/Pagination.vue";
 import FilterButton from "@/components/home_page/FilterButton.vue";
 import AnimalCard from "@/components/home_page/AnimalCard.vue";
 import catIcon from "@/assets/home_page/cat.svg";
-import bellIcon from "@/assets/home_page/bell.svg";
 import dogIcon from "@/assets/home_page/dog.svg";
-import { ref, watch, computed, ComputedRef } from "vue";
+import { computed, ComputedRef, ref } from "vue";
 import { Animal, useAnimals } from "@stores/animalStore.ts";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
-import { useRouter } from "vue-router";
+import { useGlobalSearch } from "@stores/useGlobalSearch.ts";
+import { storeToRefs } from "pinia";
 
-const router = useRouter();
-
-const search = ref("");
-const debounceTimer = ref<number | undefined>(undefined);
 const isDogSelect = ref(false);
 const isCatSelect = ref(false);
 const currentPage = ref(1);
 const currentSpecie = ref("");
+
+const globalSearch = useGlobalSearch();
+const { search } = storeToRefs(globalSearch);
 
 const animals = useAnimals({
   page: currentPage,
@@ -35,23 +32,16 @@ const squareNumber: ComputedRef<number> = computed(
   () => animals.data?.totalPages ?? 3,
 );
 
-watch(search, () => {
-  clearTimeout(debounceTimer.value);
-  debounceTimer.value = window.setTimeout(animals.refetch, 300);
-});
-
 const selectDogs = async () => {
   if (isDogSelect.value) {
     isDogSelect.value = false;
     currentSpecie.value = "";
     currentPage.value = 1;
-    await animals.refetch();
     return;
   }
 
   currentPage.value = 1;
   currentSpecie.value = AnimalSpecies.DOG;
-  await animals.refetch();
 
   isDogSelect.value = true;
   isCatSelect.value = false;
@@ -62,57 +52,33 @@ const selectCats = async () => {
     isCatSelect.value = false;
     currentSpecie.value = "";
     currentPage.value = 1;
-    await animals.refetch();
     return;
   }
 
   currentPage.value = 1;
   currentSpecie.value = AnimalSpecies.CAT;
-  await animals.refetch();
 
   isCatSelect.value = true;
   isDogSelect.value = false;
 };
 
-const onRegisterAnimalClicked = () => {
-  router.push({
-    name: "crear-animal",
-  });
-};
-
 const handleNextPage = async () => {
   if (currentPage.value === squareNumber.value) return;
   currentPage.value += 1;
-  await animals.refetch();
 };
 
 const handlePreviousPage = async () => {
   if (currentPage.value === 1) return;
   currentPage.value -= 1;
-  await animals.refetch();
 };
 </script>
 
 <template>
-  <div class="flex flex-col justify-center">
-    <div
-      class="flex justify-start lg:justify-end items-center gap-3 lg:mx-4 mt-5"
-    >
-      <SearchInput v-model="search" />
-      <AddButton @click="onRegisterAnimalClicked">
-        <span class="hidden md:flex">Registrar Animal</span>
-      </AddButton>
-    </div>
-    <div class="mt-5 mb-5 flex items-center gap-3">
-      <h2 class="text-2xl md:text-4xl font-bold m-0">Categorías</h2>
-      <img
-        :src="bellIcon"
-        alt="notification bell"
-        class="mt-1 md:mt-2 size-4 md:size-6"
-      />
+  <div class="flex flex-col justify-center ml-12">
+    <div class="mt-14 mb-5 flex items-center gap-3">
+      <h2 class="text-2xl md:text-4xl font-medium m-0">Animalitos</h2>
     </div>
     <div class="flex items-center flex-wrap gap-3 mt-4 mb-7">
-      <!-- <FilterButton :icon="filterIcon" text="Filtrar" /> -->
       <span class="font-semibold">Filtrar por especie:</span>
       <FilterButton
         :icon="dogIcon"
