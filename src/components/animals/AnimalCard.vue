@@ -3,7 +3,7 @@ import { Animal } from "@stores/animalStore.ts";
 import dogUrl from "@/assets/images/dog_default.jpg";
 import catUrl from "@/assets/images/cat_default.jpg";
 import { AnimalSpecies } from "@/enums/animal_species.ts";
-import AnimalGenderIcon from "@/components/home_page/AnimalGenderIcon.vue";
+import AnimalGenderIcon from "@/components/animals/AnimalGenderIcon.vue";
 
 const { animal } = defineProps<{ animal: Animal }>();
 
@@ -14,21 +14,21 @@ const adoptado = animal.adoptado ? "ADOPTADO" : "NO ADOPTADO";
   <div
     class="size-40 md:w-[15rem] h-max max-w-sm bg-white shadow border border-t-gray-500/25 border-x-gray-600/20 rounded-t-xl rounded-b-xl"
   >
-    <div>
+    <div class="">
       <img
         :src="
           animal.imagen ??
           (animal.especie === AnimalSpecies.DOG ? dogUrl : catUrl)
         "
         alt="animal image"
-        class="h-52 md:size-64 w-full rounded-t-xl aspect-square object-cover"
+        class="md:size-[14.88rem] md:h-[14.73rem] w-full rounded-t-xl aspect-square object-cover"
       />
     </div>
 
     <div
-      class="pl-4 pr-4 py-4 text-[0.8rem] shadow-md rounded-b-xl bg-gray-200/45 border border-t-gray-500/15"
+      class="pl-4 pr-4 py-4 text-[0.8rem] h-[7rem] rounded-b-xl bg-gray-200/45 border border-t-gray-500/15"
     >
-      <div class="flex justify-between w-full items-center mb-2">
+      <div class="flex justify-between w-full items-center mb-1">
         <h5
           class="text-[1.42rem] font-bold tracking-tight text-gray-900 dark:text-white"
         >

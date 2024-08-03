@@ -5,7 +5,7 @@ const globalSearch = useGlobalSearch();
 </script>
 
 <template>
-  <div class="relative flex items-center mr-3">
+  <div class="relative flex items-center mr-3.5">
     <div
       class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
     >
@@ -27,7 +27,7 @@ const globalSearch = useGlobalSearch();
     </div>
     <input
       :value="globalSearch.search"
-      class="w-[16rem] h-8 block text-sm border-primary text-gray-900 border ps-10 rounded-full bg-gray-50 md:w-72"
+      class="w-[10rem] h-8 block text-sm border-primary text-gray-900 border ps-10 rounded-full bg-gray-50 md:w-72"
       placeholder="Buscar"
       type="search"
       @input="globalSearch.set($event.target.value)"

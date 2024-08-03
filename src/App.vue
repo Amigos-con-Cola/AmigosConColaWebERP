@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import SideBar from "@/components/SideBar.vue";
+import SideBar from "@/components/common/SideBar.vue";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
-import NavBar from "@/components/NavBar.vue";
-import SearchInput from "@/components/home_page/SearchInput.vue";
+import NavBar from "@/components/common/NavBar.vue";
+import SearchInput from "@/components/common/GlobalSearch.vue";
 
 const route = useRoute();
 const shouldShowSideBar = computed(

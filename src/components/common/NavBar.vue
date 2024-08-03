@@ -11,9 +11,11 @@ import AmigosConColaLogo from "@assets/images/amigos-con-cola-logo.png";
         <img
           :src="AmigosConColaLogo"
           alt="Logo de Amigos con cola"
-          class="w-10 h-10"
+          class="w-9 h-9 lg:w-12 lg:h-12"
         />
-        <span class="ml-1 font-medium text-[1.1rem]">Amigos con cola</span>
+        <span class="ml-1 lg:font-medium text-xs lg:text-[1.1rem]"
+          >Amigos con cola</span
+        >
       </RouterLink>
     </div>
     <div class="flex">
