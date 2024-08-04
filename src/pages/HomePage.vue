@@ -7,6 +7,7 @@ import { storeToRefs } from "pinia";
 import ACButtonPrimary from "@/components/common/buttons/ACButtonPrimary.vue";
 import { useRouter } from "vue-router";
 import ACSelectRadio from "@/components/common/ACSelectRadio.vue";
+import PaginationControls from "@/components/common/PaginationControls.vue";
 
 const currentPage = ref(1);
 const currentSpecies = ref("");
@@ -71,7 +72,11 @@ const onSelectSpecies = (id: number) => {
       </RouterLink>
     </section>
     <div class="flex justify-center py-10">
-      <!-- TODO: Add paginator here -->
+      <PaginationControls
+        :current-page="currentPage"
+        :pages="animals?.data?.totalPages ?? 0"
+        @select-page="(page) => (currentPage = page)"
+      />
     </div>
   </div>
 </template>
