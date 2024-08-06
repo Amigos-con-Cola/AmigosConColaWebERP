@@ -6,9 +6,11 @@ withDefaults(
     name: string;
     required?: boolean;
     items: string[];
+    disabled?: boolean;
   }>(),
   {
     required: true,
+    disabled: false,
     items: () => [],
   },
 );
@@ -31,6 +33,7 @@ withDefaults(
             :required="required"
             :name="name"
             :value="item"
+            :disabled="disabled"
             class="w-4 h-4 text-primary border-primary-dark focus:ring-primary/25 focus:ring-2"
           />
           <label :for="name" class="text-sm ms-2 font-medium text-gray-900">

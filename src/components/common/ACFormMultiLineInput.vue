@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { Field } from "vee-validate";
 
-defineProps<{
-  name: string;
-}>();
+withDefaults(
+  defineProps<{
+    name: string;
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false,
+  },
+);
 </script>
 
 <template>
@@ -20,6 +26,8 @@ defineProps<{
       :id="name"
       :name="name"
       rows="4"
+      :disabled="disabled"
+      v-bind="$attrs"
       class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-primary focus:ring-primary/25 focus:border-primary-dark"
     ></Field>
   </div>

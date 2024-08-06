@@ -32,7 +32,6 @@ onMounted(() => {
 });
 
 watchEffect(() => {
-  console.log("here modal watch");
   if (modal.value !== null) {
     if (open.value) {
       modal.value.show();

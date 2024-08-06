@@ -48,7 +48,7 @@ export const useAseos = (idAnimal: number) => {
   const {
     isError: isMutationError,
     error: mutationError,
-    mutate,
+    mutateAsync,
     isSuccess,
   } = useMutation({
     mutationFn: postAseos,
@@ -61,7 +61,7 @@ export const useAseos = (idAnimal: number) => {
     isError,
     error,
     items: data,
-    create: mutate,
+    create: mutateAsync,
     isSuccess,
     isMutationError,
     mutationError,

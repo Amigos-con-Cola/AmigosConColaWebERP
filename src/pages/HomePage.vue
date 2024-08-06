@@ -26,7 +26,7 @@ const animals = useAnimals({
 
 const spinner = useSpinner();
 watchEffect(() => {
-  if (animals.loading) {
+  if (animals.loading && !animals.error) {
     spinner.show();
   } else {
     spinner.close();
@@ -75,7 +75,7 @@ const onSelectSpecies = (id: number) => {
       <RouterLink
         v-for="animal in animals.data?.data"
         :key="animal.id"
-        :to="`/pet-info/${animal.id}`"
+        :to="`/animales/${animal.id}`"
         class="gap-x-5 flex md:gap-x-5 lg:gap-x-11 gap-y-9 flex-wrap"
       >
         <AnimalCard :animal="animal" />

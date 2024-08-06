@@ -23,8 +23,18 @@ const routes = [
     component: () => import("@pages/NewAnimalPage.vue"),
   },
   {
+    path: "/animales/:id",
+    name: "animal-details",
+    component: () => import("@pages/AnimalDetailsPage.vue"),
+  },
+  {
     path: "/animales/:id/aseos",
     component: () => import("@pages/AseosPage.vue"),
+  },
+  {
+    path: "/animales/:id/aseos/nuevo",
+    name: "new-aseo",
+    component: () => import("@pages/NewAseoPage.vue"),
   },
 ];
 
