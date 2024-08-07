@@ -9,6 +9,7 @@ import { useRouter } from "vue-router";
 import ACSelectRadio from "@/components/common/ACSelectRadio.vue";
 import PaginationControls from "@/components/common/PaginationControls.vue";
 import { useSpinner } from "@stores/loadingSpinnerModalStore.ts";
+import { refDebounced } from "@vueuse/core";
 
 const currentPage = ref(1);
 const currentSpecies = ref("");
@@ -17,11 +18,12 @@ const router = useRouter();
 
 const globalSearch = useGlobalSearch();
 const { search } = storeToRefs(globalSearch);
+const searchDebounced = refDebounced(search);
 
 const animals = useAnimals({
   page: currentPage,
   specie: currentSpecies,
-  name: search,
+  name: searchDebounced,
 });
 
 const spinner = useSpinner();

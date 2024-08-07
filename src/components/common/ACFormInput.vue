@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field } from "vee-validate";
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     name: string;
     required?: boolean;
@@ -12,6 +12,17 @@ withDefaults(
     disabled: false,
   },
 );
+
+const focus = () => {
+  const elem: HTMLInputElement | null = document.querySelector(
+    `input[name=${props.name}]`,
+  );
+  if (elem !== null) {
+    elem.focus();
+  }
+};
+
+defineExpose({ focus });
 </script>
 
 <template>

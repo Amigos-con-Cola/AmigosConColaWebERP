@@ -29,12 +29,43 @@ const routes = [
   },
   {
     path: "/animales/:id/aseos",
+    name: "aseos",
     component: () => import("@pages/AseosPage.vue"),
   },
   {
     path: "/animales/:id/aseos/nuevo",
     name: "new-aseo",
     component: () => import("@pages/NewAseoPage.vue"),
+  },
+  {
+    path: "/animales/:id/desparasitaciones",
+    name: "desparasitaciones",
+    component: () => import("@pages/DesparasitacionesPage.vue"),
+  },
+  {
+    path: "/animales/:id/desparasitaciones/nuevo",
+    name: "new-desparasitacion",
+    component: () => import("@pages/NewDesparasitacionPage.vue"),
+  },
+  {
+    path: "/animales/:id/vacunas",
+    name: "vacunas",
+    component: () => import("@pages/VacunasPage.vue"),
+  },
+  {
+    path: "/animales/:id/vacunas/nuevo",
+    name: "new-vacuna",
+    component: () => import("@pages/NewVacunaPage.vue"),
+  },
+  {
+    path: "/animales/:id/pesos",
+    name: "pesos",
+    component: () => import("@pages/PesosPage.vue"),
+  },
+  {
+    path: "/animales/:id/pesos/nuevo",
+    name: "new-peso",
+    component: () => import("@pages/NewPesoPage.vue"),
   },
 ];
 

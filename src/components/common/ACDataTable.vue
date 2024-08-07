@@ -4,6 +4,7 @@ import { computed } from "vue";
 export interface ColumnSpec {
   displayName: string;
   accessor: string;
+  mapper?: (value: any) => string;
 }
 
 export interface RowSpec {
@@ -55,7 +56,7 @@ const totalColumns = computed(() =>
           </th>
         </tr>
       </thead>
-      <tbody v-if="data">
+      <tbody v-if="data && data.length > 0">
         <tr
           v-for="item of data"
           :key="item.id"
@@ -63,7 +64,11 @@ const totalColumns = computed(() =>
         >
           <td class="px-6 py-4" v-for="j in totalColumns">
             <span v-if="j - 1 < columns.length">
-              {{ item[columns[j - 1].accessor] }}
+              {{
+                typeof columns[j - 1].mapper === "function"
+                  ? columns[j - 1].mapper!(item[columns[j - 1].accessor])
+                  : item[columns[j - 1].accessor]
+              }}
             </span>
             <div v-else-if="editable || deletable">
               <button
@@ -81,6 +86,13 @@ const totalColumns = computed(() =>
                 Eliminar
               </button>
             </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody v-else>
+        <tr>
+          <td class="py-8" :colspan="totalColumns" align="center">
+            No hay elementos para mostrar.
           </td>
         </tr>
       </tbody>

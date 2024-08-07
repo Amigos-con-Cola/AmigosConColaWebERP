@@ -7,47 +7,30 @@ import {
 } from "@tanstack/vue-query";
 import { reactive } from "vue";
 
-export interface Vaccine {
+export interface Vacuna {
+  id: number;
   name: string;
   date: string;
-  examenPrevio?: string | undefined;
+  examen_previo?: string | undefined;
 }
 
-export interface PostVacunaParams {
-  vaccine: Vaccine;
-  idAnimal: number;
+export interface NewVacuna {
+  name: string;
+  date: string;
+  examen_previo?: string | undefined;
 }
 
-/**
- * Create a new vaccine.
- * @param idAnimal The id of the animal to create the vaccine for.
- * @param vaccine The vaccine to create.
- * @return The created vaccine.
- */
-async function postVacuna(params: PostVacunaParams): Promise<Vaccine | null> {
-  const vaccine = params.vaccine;
-  const idAnimal = params.idAnimal;
-
-  if (!vaccine || typeof vaccine !== "object") {
-    console.error("Invalid argument: vaccine must be an object");
-    return null;
-  }
-
-  try {
-    const response = await apiClient.post<Vaccine>(
-      `/api/animales/${idAnimal}/vacunaciones`,
-      vaccine,
-    );
-    return response.data;
-  } catch (error: any) {
-    console.error(error.message);
-    return null;
-  }
+async function postVacuna(id: number, vacuna: NewVacuna): Promise<Vacuna> {
+  const response = await apiClient.post<Vacuna>(
+    `/api/animales/${id}/vacunaciones`,
+    vacuna,
+  );
+  return response.data;
 }
 
 async function getVacunas({
   queryKey,
-}: QueryFunctionContext): Promise<Vaccine[] | null> {
+}: QueryFunctionContext): Promise<Vacuna[]> {
   try {
     const response = await apiClient.get(
       `/api/animales/${queryKey[1]}/vacunaciones`,
@@ -55,7 +38,7 @@ async function getVacunas({
     return response.data;
   } catch (error: any) {
     console.error(error.message);
-    return null;
+    return [];
   }
 }
 
@@ -69,7 +52,7 @@ export const useVacunas = (idAnimal: number) => {
   });
 
   const { mutateAsync, error, isError, isSuccess } = useMutation({
-    mutationFn: postVacuna,
+    mutationFn: async (payload: NewVacuna) => postVacuna(idAnimal, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["vacunas", idAnimal] });
     },

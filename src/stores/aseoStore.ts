@@ -16,24 +16,20 @@ export interface Aseo {
 }
 
 export interface NewAseo {
-  idAnimal: number;
   fecha: string;
   tipo: string;
 }
 
-const fetchAseos = ({ queryKey }: QueryFunctionContext): Promise<Aseo[]> => {
-  return apiClient
-    .get<Aseo[]>(`/api/animales/${queryKey[1]}/aseos`)
-    .then((res) => res.data);
+const fetchAseos = async ({
+  queryKey,
+}: QueryFunctionContext): Promise<Aseo[]> => {
+  const res = await apiClient.get<Aseo[]>(`/api/animales/${queryKey[1]}/aseos`);
+  return res.data;
 };
 
-const postAseos = (newAseo: NewAseo): Promise<Aseo | null> => {
-  return apiClient
-    .post(
-      `/api/animales/${newAseo.idAnimal}/aseos`,
-      _.omit(newAseo, ["idAnimal"]),
-    )
-    .then((res) => res.data);
+const postAseos = async (id: number, aseo: NewAseo): Promise<Aseo> => {
+  const res = await apiClient.post(`/api/animales/${id}/aseos`, aseo);
+  return res.data;
 };
 
 export const useAseos = (idAnimal: number) => {
@@ -51,7 +47,7 @@ export const useAseos = (idAnimal: number) => {
     mutateAsync,
     isSuccess,
   } = useMutation({
-    mutationFn: postAseos,
+    mutationFn: async (payload: NewAseo) => await postAseos(idAnimal, payload),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["aseos", idAnimal] });
     },
