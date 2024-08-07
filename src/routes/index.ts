@@ -18,6 +18,11 @@ const routes = [
     component: () => import("@pages/Inventory.vue"),
   },
   {
+    name: "crear-medicina",
+    path: "/inventario/nuevo",
+    component: () => import("@pages/NewInventoryItemPage.vue"),
+  },
+  {
     path: "/animales/nuevo",
     name: "crear-animal",
     component: () => import("@pages/NewAnimalPage.vue"),
