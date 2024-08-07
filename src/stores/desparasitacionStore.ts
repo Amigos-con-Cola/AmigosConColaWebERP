@@ -7,7 +7,8 @@ import {
 } from "@tanstack/vue-query";
 import { reactive } from "vue";
 
-export interface Deworming {
+export interface Desparasitacion {
+  id: number;
   tipo: string;
   fecha: string;
   producto: string;
@@ -15,43 +16,28 @@ export interface Deworming {
   formato: string;
 }
 
-export interface PostDesparasitacionesParams {
-  deworming: Deworming;
-  idAnimal: number;
+export interface NuevaDesparasitacion {
+  tipo: string;
+  fecha: string;
+  producto: string;
+  peso: number;
+  formato: string;
 }
 
-/**
- * Create a new Deworming.
- * @param params The parameters (PostDesparasitacionesParams) to create the deworming.
- * @return The created deworming.
- */
-
 async function postDesparasitaciones(
-  params: PostDesparasitacionesParams,
-): Promise<Deworming | null> {
-  const deworming = params.deworming;
-  const idAnimal = params.idAnimal;
-
-  if (!deworming || typeof deworming !== "object") {
-    console.error("Invalid argument: deworming must be an object");
-    return null;
-  }
-
-  try {
-    const response = await apiClient.post<Deworming>(
-      `/api/animals/${idAnimal}/desparasitaciones`,
-      deworming,
-    );
-    return response.data;
-  } catch (error: any) {
-    console.error(error.message);
-    return null;
-  }
+  id: number,
+  payload: NuevaDesparasitacion,
+): Promise<Desparasitacion> {
+  const res = await apiClient.post(
+    `/api/animals/${id}/desparasitaciones`,
+    payload,
+  );
+  return res.data;
 }
 
 export async function getDesparasitaciones({
   queryKey,
-}: QueryFunctionContext): Promise<Deworming[] | null> {
+}: QueryFunctionContext): Promise<Desparasitacion[]> {
   try {
     const response = await apiClient.get(
       `/api/animals/${queryKey[1]}/desparasitaciones`,
@@ -59,7 +45,7 @@ export async function getDesparasitaciones({
     return response.data;
   } catch (error: any) {
     console.error(error.message);
-    return null;
+    return [];
   }
 }
 
@@ -72,7 +58,8 @@ export const useDesparasitaciones = (idAnimal: number) => {
   });
 
   const { mutateAsync, error, isError, isSuccess } = useMutation({
-    mutationFn: postDesparasitaciones,
+    mutationFn: async (payload: NuevaDesparasitacion) =>
+      postDesparasitaciones(idAnimal, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["desparasitaciones", idAnimal],

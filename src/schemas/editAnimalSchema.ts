@@ -14,10 +14,7 @@ export const schema = yup.object({
     .min(0, "La edad debe ser mayor a cero")
     .max(20, "La edad debe ser menor a 20")
     .required("La edad es obligatoria"),
-  adoptado: yup
-    .boolean()
-    .optional()
-    .default(false),
+  adoptado: yup.boolean().optional().default(false),
   genero: yup
     .string()
     .oneOf(["Female", "Male"], "El género debe ser femenino o masculino")
