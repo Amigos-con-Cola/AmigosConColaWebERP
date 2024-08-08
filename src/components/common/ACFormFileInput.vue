@@ -62,6 +62,7 @@ defineExpose({
         <input
           ref="input"
           id="dropzone-file"
+          accept="image/jpeg, image/png, image/jpg"
           type="file"
           class="hidden"
           @reset="
