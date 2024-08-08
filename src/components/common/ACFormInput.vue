@@ -27,7 +27,7 @@ defineExpose({ focus });
 
 <template>
   <div>
-    <label :for="name" class="block mb-2 text-sm font-medium">
+    <label :for="name" class="mb-2 text-sm font-medium">
       <slot />
       <span v-if="required" class="text-red-600">*</span>
     </label>
