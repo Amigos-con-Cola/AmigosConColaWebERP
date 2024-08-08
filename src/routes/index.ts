@@ -72,6 +72,12 @@ const routes = [
     name: "new-peso",
     component: () => import("@pages/NewPesoPage.vue"),
   },
+  {
+    path: "/crear-item",
+    name: "crear-item",
+    component: () =>
+      import("@/pages/item_registration/CreateInventoryItem.vue"),
+  },
 ];
 
 const router = createRouter({
