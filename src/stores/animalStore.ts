@@ -138,6 +138,20 @@ export const useAnimal = (idAnimal: number) => {
     },
   });
 
+  const { mutateAsync: changeImage } = useMutation({
+    mutationKey: ["animals", idAnimal],
+    mutationFn: async function (payload: File) {
+      const formData = new FormData();
+      formData.set("imagen", payload);
+      await apiClient.put(`/api/animals/${idAnimal}/image`, formData);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["animals", idAnimal],
+      });
+    },
+  });
+
   return reactive({
     data,
     remove,
@@ -145,6 +159,7 @@ export const useAnimal = (idAnimal: number) => {
     isError,
     loading: isFetching,
     update,
+    changeImage,
   });
 };
 
@@ -184,9 +199,9 @@ export const useAnimals = (
   });
 
   if (params !== null) {
-    watch(params.page, refetch);
-    watch(params.specie, refetch);
-    watch(params.name, refetch);
+    watch(params.page, refetch as any);
+    watch(params.specie, refetch as any);
+    watch(params.name, refetch as any);
   }
 
   return reactive({

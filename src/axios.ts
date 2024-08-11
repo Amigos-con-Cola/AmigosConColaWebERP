@@ -42,6 +42,8 @@ apiClient.interceptors.response.use(
         localStorage.removeItem("refresh_token");
         await router.push("/login");
       }
+    } else {
+      return Promise.reject(error);
     }
   },
 );

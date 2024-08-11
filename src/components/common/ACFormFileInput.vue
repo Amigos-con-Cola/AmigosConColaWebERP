@@ -13,12 +13,12 @@ const reset = () => {
 withDefaults(
   defineProps<{
     name: string;
-    action: string;
+    action?: string;
     allowedTypes?: string[];
   }>(),
   {
     action: " para seleccionar un archivo",
-    allowedTypes: () => ["JPG", "JPEG", "PNG"],
+    allowedTypes: () => ["image/jpg", "image/jpeg", "image/png"],
   },
 );
 
