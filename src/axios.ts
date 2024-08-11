@@ -3,7 +3,7 @@ import type { App } from "vue";
 import router from "./routes";
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL ?? "http://localhost:5130",
+  baseURL: import.meta.env.VITE_BASE_URL ?? "http://localhost:5000",
 });
 
 apiClient.interceptors.request.use(
