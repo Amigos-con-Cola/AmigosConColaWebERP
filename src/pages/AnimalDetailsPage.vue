@@ -17,6 +17,7 @@ import { useToast } from "@/stores/toastStore";
 import ACFormToggle from "@/components/common/ACFormToggle.vue";
 import { initFlowbite, Modal, ModalInterface } from "flowbite";
 import ACFormFileInput from "@/components/common/ACFormFileInput.vue";
+import { useSpinner } from "@stores/loadingSpinnerModalStore.ts";
 
 onMounted(() => initFlowbite());
 
@@ -28,6 +29,9 @@ const animal = useAnimal(id);
 
 const editing = ref(false);
 const nameInput = ref<typeof ACFormInput | null>(null);
+
+const { toast } = useToast();
+const spinner = useSpinner();
 
 const imageUrl = ref<string | undefined | null>(animal.data?.imagen);
 const imageFile = ref<File | null>(null);
@@ -63,11 +67,13 @@ const onUpdateImagePreview = (file: File | null) => {
 
 const onChangeImage = async ({ imagen }: ChangeImageSchema) => {
   try {
-    await animal.changeImage(imagen as any);
+    await spinner.wait(async () => await animal.changeImage(imagen as any));
     toast({
       message: "Imagen actualizada con éxito",
     });
     imageChangeModal?.value?.hide();
+    imageUrl.value = null;
+    imageFile.value = null;
   } catch {
     toast({
       message: "Hubo un error al actualizar la imagen",
@@ -75,8 +81,6 @@ const onChangeImage = async ({ imagen }: ChangeImageSchema) => {
     });
   }
 };
-
-const { toast } = useToast();
 
 const resetForm = () => {
   if (animal.data !== null && form.value !== null) {
