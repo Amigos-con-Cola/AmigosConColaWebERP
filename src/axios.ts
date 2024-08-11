@@ -2,6 +2,10 @@ import axios from "axios";
 import type { App } from "vue";
 import router from "./routes";
 
+const authClient = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL ?? "http://localhost:5000",
+});
+
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL ?? "http://localhost:5000",
 });
@@ -21,7 +25,7 @@ apiClient.interceptors.response.use(
     if (error?.response?.status === 401) {
       try {
         const refreshToken = localStorage.getItem("refresh_token");
-        const response = await apiClient.post("/api/Auth/refresh", {
+        const response = await authClient.post("/api/Auth/refresh", {
           refresh_token: refreshToken,
         });
         const { access_token, refresh_token } = response.data;
@@ -32,7 +36,7 @@ apiClient.interceptors.response.use(
         const config = error?.config;
         config.headers.Authorization = `Bearer ${access_token}`;
 
-        return apiClient(config);
+        return authClient(config);
       } catch (err) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
