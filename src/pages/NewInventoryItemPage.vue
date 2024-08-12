@@ -15,7 +15,6 @@ import { useRouter } from "vue-router";
 import { useToast } from "@stores/toastStore.ts";
 import { useSpinner } from "@stores/loadingSpinnerModalStore.ts";
 import { useInventory } from "@stores/inventoryStore.ts";
-import { Option } from "@/components/common/ACFormSelectInput.vue";
 
 const inventory = useInventory();
 
