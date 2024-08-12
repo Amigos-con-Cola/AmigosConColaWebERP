@@ -1,15 +1,15 @@
 export interface NewInventoryItem {
   nombre: string;
   ingrediente_principal: string;
-  formato: string;
+  formato?: string | null;
   volumen: string;
   via: string;
   fecha_vencimiento: string;
-  laboratorio: string;
-  origen: string;
+  laboratorio?: string | null;
+  origen?: string | null;
   estado: string;
   fecha_registro: string;
-  caja: string;
+  ubicacion: string;
   tipo: string;
 }
 

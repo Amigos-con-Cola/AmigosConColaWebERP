@@ -60,7 +60,7 @@ const columns: ColumnSpec[] = [
   },
   {
     displayName: "Ubicación",
-    accessor: "caja",
+    accessor: "ubicacion",
   },
   {
     displayName: "Tipo",

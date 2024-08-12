@@ -47,7 +47,7 @@ const onSubmit = async (values: Schema) => {
     @submit="onSubmit"
   >
     <ACFormInput name="nombre">Nombre</ACFormInput>
-    <ACFormInput name="laboratorio">Laboratorio</ACFormInput>
+    <ACFormInput name="laboratorio" :required="false">Laboratorio</ACFormInput>
     <ACFormSelectInput :options="status" name="estado">
       Estado
     </ACFormSelectInput>
@@ -56,14 +56,13 @@ const onSubmit = async (values: Schema) => {
     </ACFormInput>
     <ACDatePicker name="fecha_vencimiento">Fecha de vencimiento</ACDatePicker>
     <ACDatePicker name="fecha_registro">Fecha de registro</ACDatePicker>
-    <ACFormInput name="origen">Origen</ACFormInput>
-    <ACFormInput name="formato">Formato</ACFormInput>
+    <ACFormInput name="origen" :required="false">Origen</ACFormInput>
+    <ACFormInput name="formato" :required="false">Formato</ACFormInput>
     <ACFormInput name="volumen">Volumen</ACFormInput>
-    <ACFormInput name="caja">Caja</ACFormInput>
+    <ACFormInput name="ubicacion">Ubicación</ACFormInput>
     <ACFormSelectInput :options="vias" name="via"> V/Adm</ACFormSelectInput>
-    <ACFormInput name="cantidad">Cantidad</ACFormInput>
     <ACFormSelectInput :options="clasificaciones" name="tipo">
-      Clasificación
+      Tipo
     </ACFormSelectInput>
     <span></span>
     <ACButtonPrimary

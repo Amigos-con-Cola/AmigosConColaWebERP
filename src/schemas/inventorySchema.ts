@@ -40,20 +40,20 @@ export const status: string[] = [
   "Usado c/vacio",
 ];
 
-export const vias: string[] = ["Oral", "Inyect", "Tópica", "Emul"];
+export const vias: string[] = ["Oral", "Inyectable", "Tópica"];
 
 export const schema = yup.object({
   nombre: yup.string().required("El nombre es obligatorio"),
-  laboratorio: yup.string().required("El laboratorio es obligatorio"),
+  laboratorio: yup.string().optional(),
   ingrediente_principal: yup
     .string()
     .required("El ingrediente principal es obligatorio"),
-  origen: yup.string().required("El origen es obligatorio"),
+  origen: yup.string().optional(),
   estado: yup
     .string()
     .oneOf(status, "El estado debe ser uno de los valores predefinidos")
     .required("El estado es obligatorio"),
-  formato: yup.string().required("El formato es obligatorio"),
+  formato: yup.string().optional(),
   fecha_vencimiento: yup
     .string()
     .matches(/\d\d\d\d-\d\d-\d\d/)
@@ -70,14 +70,16 @@ export const schema = yup.object({
       const [month, day, anio] = fecha.split("/");
       return `${anio}-${month}-${day}`;
     }),
-  volumen: yup.string().required("El volumen es obligatorio"),
-  caja: yup.string().required("La caja es obligatoria"),
+  volumen: yup
+    .number()
+    .typeError("El volumen debe ser un número")
+    .required("El volumen es obligatorio"),
+  ubicacion: yup.string().required("La ubicación es obligatoria"),
   via: yup.string().oneOf(vias).required("La vía es obligatoria"),
   tipo: yup
     .string()
     .oneOf(clasificaciones)
     .required("La clasificación es obligatoria"),
-  cantidad: yup.string().required("La cantidad es obligatoria"),
 });
 
 export const typedSchema = toTypedSchema(schema);

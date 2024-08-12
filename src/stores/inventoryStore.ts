@@ -4,7 +4,7 @@ import { reactive, Ref, watch } from "vue";
 import { InventoryItem, NewInventoryItem } from "@/types/inventory.ts";
 import { emptyPaginatedData, PaginatedData } from "@/types/paginated_data.ts";
 
-export const useInventory = (params: { page: Ref<number> } | null) => {
+export const useInventory = (params?: { page: Ref<number> } | null) => {
   const queryClient = useQueryClient();
 
   const {
