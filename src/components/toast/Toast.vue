@@ -21,10 +21,16 @@ const component = computed(() => {
 
 <template>
   <component
-    class="fixed top-5 right-5 z-20"
+    class="fixed top-5 right-5"
     id="toast"
     v-if="toast.showing"
     :is="component"
     :message="toast.message"
   />
 </template>
+
+<style scoped>
+#toast {
+  z-index: 70;
+}
+</style>

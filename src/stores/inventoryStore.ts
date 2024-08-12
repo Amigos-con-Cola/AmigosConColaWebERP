@@ -1,59 +1,46 @@
 import { apiClient } from "@/axios";
-import { useMutation, useQueryClient } from "@tanstack/vue-query";
-import { reactive } from "vue";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
+import { reactive, Ref, watch } from "vue";
+import { InventoryItem, NewInventoryItem } from "@/types/inventory.ts";
+import { emptyPaginatedData, PaginatedData } from "@/types/paginated_data.ts";
 
-export interface NewInventoryItem {
-  nombre: string;
-  ingrediente_principal: string;
-  formato: string;
-  volumen: string;
-  via: string;
-  fecha_vencimiento: Date;
-  laboratorio: string;
-  origen: string;
-  estado: string;
-  fecha_registro: Date;
-  caja: string;
-  cantidad: string;
-  tipo: string;
-}
-
-export interface InventoryItem {
-  id: number;
-  nombre: string;
-  ingrediente_principal: string;
-  formato: string;
-  volumen: string;
-  via: string;
-  fecha_vencimiento: Date;
-  laboratorio: string;
-  origen: string;
-  estado: string;
-  fecha_registro: Date;
-  caja: string;
-  cantidad: string;
-  tipo: string;
-}
-
-/**
- * Create a new inventory item.
- * @param newInventoryItem The parameter (NewInventoryItem) to create the inventory item.
- * @return The created inventory item.
- */
-
-async function createInventoryItem(
-  newInventoryItem: NewInventoryItem,
-): Promise<InventoryItem | null> {
-  const response = await apiClient.post(`/api/Inventory`, newInventoryItem);
-  return await response.data;
-}
-
-export const useInventory = () => {
+export const useInventory = (params?: { page: Ref<number> } | null) => {
   const queryClient = useQueryClient();
+
+  const {
+    data: items,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["inventory"],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get<PaginatedData<InventoryItem>>(
+          "/api/inventory",
+          {
+            params: {
+              page: params?.page?.value,
+            },
+          },
+        );
+        return response.data;
+      } catch {
+        return emptyPaginatedData<InventoryItem>();
+      }
+    },
+    initialData: emptyPaginatedData<InventoryItem>(),
+  });
+
+  if (params?.page != null) {
+    watch(params.page, () => refetch());
+  }
 
   const { mutateAsync: create } = useMutation({
     mutationKey: ["inventory"],
-    mutationFn: createInventoryItem,
+    mutationFn: async (payload: NewInventoryItem): Promise<InventoryItem> => {
+      const response = await apiClient.post(`/api/Inventory`, payload);
+      return await response.data;
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ["inventory"],
@@ -62,6 +49,8 @@ export const useInventory = () => {
   });
 
   return reactive({
+    items,
+    isLoading,
     create,
   });
 };

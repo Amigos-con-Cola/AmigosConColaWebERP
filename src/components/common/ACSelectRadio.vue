@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { onMounted } from "vue";
+import { initFlowbite } from "flowbite";
+
 interface Item {
   id: number;
   name: string;
@@ -11,6 +14,8 @@ defineProps<{
 defineEmits<{
   (e: "select", id: number): void;
 }>();
+
+onMounted(() => initFlowbite());
 </script>
 
 <template>
