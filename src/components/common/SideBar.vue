@@ -27,11 +27,10 @@ const logout = async () => {
       >
         <div class="flex flex-col justify-center items-center">
           <span
-            class="peer icon-[carbon--home] bg-white h-[2.3rem] w-[1.8rem] mt-8 hover:bg-black"
-          >
-          </span>
+            class="peer icon-[fa--paw] bg-white h-[2.3rem] w-[1.8rem] mt-8 hover:bg-black"
+          ></span>
           <span class="text-[0.67rem] mt-1 font-bold peer-hover:text-black">
-            Inicio
+            Animalitos
           </span>
         </div>
       </RouterLink>

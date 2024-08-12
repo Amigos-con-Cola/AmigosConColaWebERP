@@ -41,6 +41,7 @@ apiClient.interceptors.response.use(
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         await router.push("/login");
+        return Promise.reject(error);
       }
     } else {
       return Promise.reject(error);
