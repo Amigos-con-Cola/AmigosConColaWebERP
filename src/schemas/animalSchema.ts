@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { toTypedSchema } from "@vee-validate/yup";
+import { image } from "@/schemas/utils.ts";
 
 export const schema = toTypedSchema(
   yup.object({
@@ -25,15 +26,7 @@ export const schema = toTypedSchema(
             ? "Male"
             : null,
       ),
-    imagen: yup
-      .mixed()
-      .optional()
-      .test("image-format", "La imagen debe ser jpg o png", (value) => {
-        if (!value) return true;
-        if (value instanceof File) {
-          return ["image/jpg", "image/jpeg", "image/png"].includes(value.type);
-        }
-      }),
+    imagen: image,
     especie: yup
       .string()
       .oneOf(["Cat", "Dog"], "La especie debe ser gato o perro")
