@@ -71,9 +71,7 @@ const onSelectSpecies = (id: number) => {
         </div>
       </ACSelectRadio>
     </div>
-    <section
-      class="gap-x-5 flex md:gap-x-5 lg:gap-x-10 gap-y-9 flex-wrap md:justify-center sm:justify-normal lg:justify-normal"
-    >
+    <section class="gap-x-5 flex md:gap-x-5 lg:gap-x-10 gap-y-9 flex-wrap">
       <RouterLink
         v-for="animal in animals.data?.data"
         :key="animal.id"
