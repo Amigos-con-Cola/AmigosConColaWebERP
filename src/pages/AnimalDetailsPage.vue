@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { RouterLink, useRoute } from "vue-router";
 import { useAnimal } from "@stores/animalStore.ts";
 import { Schema, typedSchema as schema } from "@/schemas/editAnimalSchema.ts";
 import {
-  typedSchema as changeImageSchema,
   Schema as ChangeImageSchema,
+  typedSchema as changeImageSchema,
 } from "@/schemas/changeImageSchema";
 import ACFormInput from "@/components/common/ACFormInput.vue";
 import ACFormRadio from "@/components/common/ACFormRadio.vue";
@@ -18,6 +18,8 @@ import ACFormToggle from "@/components/common/ACFormToggle.vue";
 import { initFlowbite, Modal, ModalInterface } from "flowbite";
 import ACFormFileInput from "@/components/common/ACFormFileInput.vue";
 import { useSpinner } from "@stores/loadingSpinnerModalStore.ts";
+import DeleteAlert from "@/components/common/DeleteAlert.vue";
+import router from "@/routes";
 
 onMounted(() => initFlowbite());
 
@@ -119,6 +121,19 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
     });
   }
 };
+
+const onDelete = async () => {
+  try {
+    await spinner.wait(async () => await animal.remove());
+    toast({ message: "Animal eliminado con éxito" });
+    await router.push({ name: "home" });
+  } catch {
+    toast({
+      message: "Hubo un error al eliminar el animal",
+      severity: "error",
+    });
+  }
+};
 </script>
 
 <template>
@@ -127,13 +142,13 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
   <div class="px-8 py-4">
     <div
       ref="imageChangeEl"
-      tabindex="-1"
       aria-hidden="true"
       class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0"
+      tabindex="-1"
     >
       <Form
-        class="relative w-full max-w-2xl max-h-full"
         :validation-schema="changeImageSchema"
+        class="relative w-full max-w-2xl max-h-full"
         @submit="onChangeImage"
       >
         <div class="relative p-4 w-full max-w-2xl max-h-full">
@@ -145,8 +160,8 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
                 Editar imagen
               </h3>
               <button
-                type="button"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                type="button"
                 @click="() => imageChangeModal?.hide()"
               >
                 <span class="icon-[material-symbols--close]"></span>
@@ -188,8 +203,8 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
           <img
             :src="animal.data?.imagen"
             alt=""
-            width="40"
             class="rounded-full aspect-square cover border"
+            width="40"
           />
           <div
             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-primary border-2 border-white rounded-full -top-2 -end-2"
@@ -203,12 +218,21 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
       </div>
       <div class="flex items-center h-full gap-1">
         <ACButtonPrimary
+          class="flex items-center gap-1 me-2"
           @click="onEnableEditing"
-          class="flex items-center gap-2 me-2"
         >
           <span class="icon-[uil--edit]"></span>
           Editar
         </ACButtonPrimary>
+        <ACButtonCancel
+          class="flex items-center gap-1 me-2"
+          data-modal-target="delete-modal"
+          data-modal-toggle="delete-modal"
+        >
+          <span class="icon-[ph--trash] text-[1rem]"></span>
+          Eliminar
+        </ACButtonCancel>
+        <DeleteAlert :onDelete="onDelete" delete-object="animalito" />
         <RouterLink
           :to="{ name: 'desparasitaciones', params: { id } }"
           class="bg-primary/20 hover:bg-primary-dark/20 text-primary text-sm font-medium px-2.5 py-0.5 rounded border border-primary-dark inline-flex items-center justify-center"
@@ -237,43 +261,43 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
     </div>
     <Form
       ref="form"
-      class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 md:gap-x-8 md:gap-y-4"
       :validation-schema="schema"
+      class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 md:gap-x-8 md:gap-y-4"
       @submit="onSubmit"
     >
-      <ACFormInput ref="nameInput" name="nombre" :disabled="!editing">
+      <ACFormInput ref="nameInput" :disabled="!editing" name="nombre">
         Nombre
       </ACFormInput>
-      <ACFormInput name="edad" :disabled="!editing"> Edad</ACFormInput>
-      <ACFormInput name="ubicacion" :disabled="!editing">
+      <ACFormInput :disabled="!editing" name="edad"> Edad</ACFormInput>
+      <ACFormInput :disabled="!editing" name="ubicacion">
         Ubicación
       </ACFormInput>
-      <ACFormInput name="codigo" :required="false" :disabled="!editing">
+      <ACFormInput :disabled="!editing" :required="false" name="codigo">
         Código
       </ACFormInput>
-      <ACFormInput name="peso" :disabled="!editing"> Peso</ACFormInput>
+      <ACFormInput :disabled="!editing" name="peso"> Peso</ACFormInput>
       <ACFormToggle :disabled="!editing" name="adoptado">
         Adoptado
       </ACFormToggle>
       <ACFormRadio
-        name="genero"
-        :items="['Femenino', 'Masculino']"
         :disabled="!editing"
+        :items="['Femenino', 'Masculino']"
+        name="genero"
       >
         Género
       </ACFormRadio>
       <ACFormRadio
-        name="especie"
-        :items="['Gato', 'Perro']"
         :disabled="!editing"
+        :items="['Gato', 'Perro']"
+        name="especie"
       >
         Especie
       </ACFormRadio>
       <ACFormMultiLineInput
+        :disabled="!editing"
+        :required="false"
         class="col-span-2"
         name="historia"
-        :required="false"
-        :disabled="!editing"
       >
         Historia
       </ACFormMultiLineInput>
@@ -288,8 +312,8 @@ const onSubmit: SubmissionHandler<Schema> = async (values) => {
         </ACButtonPrimary>
         <ACButtonCancel
           v-if="editing"
-          @click="onCancelEdit"
           class="flex items-center gap-1 w-fit mt-4"
+          @click="onCancelEdit"
         >
           Cancelar
         </ACButtonCancel>
